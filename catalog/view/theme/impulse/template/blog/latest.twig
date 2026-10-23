@@ -1,0 +1,45 @@
+{{ header }}
+
+<nav class="breadcrumbs" aria-label="breadcrumb">
+  <div class="_container">
+    <ol class="breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="breadcrumb-item">
+          <a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</nav>
+
+<section class="news">
+  <div class="_container">
+    <div class="news__wrapper">
+      <h2 class="news__title h2 section-title">Блог</h2>
+
+      <div class="news__list">
+        {% for article in articles %}
+          <div class="news-item">
+            <a href="{{ article['href'] }}" class="news-item-image">
+              <div class="news-item-image__wrapper">
+                <img src="{{ article['thumb'] }}" alt="" />
+              </div>
+            </a>
+            <div class="news-main">
+              <a href="{{ article['href'] }}" class="news-item__title">{{ article['name'] }}</a>
+              <div class="news-item__text">{{ article['description'] }}</div>
+              <div class="news-item__date">
+                <span class="date">{{ article.date_day }}<span>/{{ article.date_month }}</span></span>
+                <span class="year">{{ article.date_year }}</span>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <nav class="news-pagination catalog-pagination">{{ pagination }}</nav>
+    </div>
+  </div>
+</section>
+
+{{ footer }}

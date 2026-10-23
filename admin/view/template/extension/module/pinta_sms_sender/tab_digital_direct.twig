@@ -1,0 +1,41 @@
+<table class="table">
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ text_info }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <span class="help"><i class="fa fa-info-circle"></i>&nbsp;{{ digital_direct_help_api }}</span>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ digital_direct_api_key }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="PintaSmsSender[DigitalDirect][APIKey]" value="{{ data.PintaSmsSender.DigitalDirect.APIKey ? data.PintaSmsSender.DigitalDirect.APIKey : "" }}" />
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ digital_direct_sender }}</strong></h5>
+            <span class="help"><i class="fa fa-info-circle"></i>&nbsp;{{ digital_direct_help_sender }}</span>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group" name="phone_input">
+                    <input type="text" class="form-control" name="PintaSmsSender[DigitalDirect][Sender]" maxlength="15" value="{{ data.PintaSmsSender.DigitalDirect.Sender ? data.PintaSmsSender.DigitalDirect.Sender : "" }}" />
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>

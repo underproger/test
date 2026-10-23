@@ -1,0 +1,141 @@
+{{ header }}
+
+<nav class="breadcrumbs" aria-label="breadcrumb">
+  <div class="_container">
+    <ol class="breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="breadcrumb-item">
+          <a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</nav>
+
+<section class="contacts">
+  <div class="_container">
+    <h1 class="contacts__title h2 section-title">Контакти</h1>
+    <div class="contacts__wrapper">
+      {% if locations %}
+        {% for location in locations %}
+          <div class="contacts-block">
+            <div class="contacts-block__title">{{ location.name }}</div>
+            <div class="contacts-block__wrapper">
+              <a href="{{ location.comment }}" class="contacts-block-item" target="_blank" rel="nofollow">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M15 10C15 11.6569 13.6569 13 12 13C10.3431 13 9 11.6569 9 10C9 8.34315 10.3431 7 12 7C13.6569 7 15 8.34315 15 10Z" fill="#1A1A1A" />
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M5 10C5 15.25 12 21 12 21C12 21 19 15.25 19 10C19 6.13 15.87 3 12 3C8.13 3 5 6.13 5 10ZM7 10C7 7.23457 9.23457 5 12 5C14.7654 5 17 7.23457 17 10C17 11.8607 15.6843 14.1296 13.9654 16.1861C13.2714 17.0165 12.5732 17.7402 12 18.2974C11.4268 17.7402 10.7286 17.0165 10.0346 16.1861C8.31569 14.1296 7 11.8607 7 10Z" fill="#1A1A1A" />
+                </svg>
+
+                <span>{{ location.address }}</span>
+              </a>
+
+              <div class="contacts-block-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.7064 12.2928C17.3154 11.9018 16.6834 11.9018 16.2924 12.2928L14.6984 13.8868C13.9594 13.6668 12.5804 13.1668 11.7064 12.2928C10.8324 11.4188 10.3324 10.0398 10.1124 9.30076L11.7064 7.70676C12.0974 7.31576 12.0974 6.68376 11.7064 6.29276L7.70636 2.29276C7.31536 1.90176 6.68336 1.90176 6.29236 2.29276L3.58036 5.00476C3.20036 5.38476 2.98636 5.90676 2.99436 6.43976C3.01736 7.86376 3.39436 12.8098 7.29236 16.7078C11.1904 20.6058 16.1364 20.9818 17.5614 21.0058C17.5664 21.0058 17.5844 21.0058 17.5894 21.0058C18.1174 21.0058 18.6164 20.7978 18.9944 20.4198L21.7064 17.7078C22.0974 17.3168 22.0974 16.6848 21.7064 16.2938L17.7064 12.2928ZM17.5794 19.0048C16.3314 18.9838 12.0614 18.6488 8.70636 15.2928C5.34036 11.9268 5.01436 7.64176 4.99436 6.41876L6.99936 4.41376L9.58536 6.99976L8.29236 8.29276C8.05336 8.53076 7.95136 8.87476 8.02036 9.20476C8.04436 9.31976 8.63136 12.0468 10.2914 13.7068C11.9514 15.3668 14.6784 15.9538 14.7934 15.9778C15.1264 16.0488 15.4674 15.9458 15.7054 15.7068L16.9994 14.4138L19.5854 16.9998L17.5794 19.0048Z" fill="#1A1A1A" />
+                </svg>
+
+                <span>
+                  <a href="tel:{{ location.telephone }}">{{ location.telephone }}</a>
+
+                  {% if location.telephone2 %}
+                    <a href="tel:{{ location.telephone2 }}">{{ location.telephone2 }}</a>
+                  {% endif %}
+                </span>
+              </div>
+
+              {% if location.email %}
+                <div class="contacts-block-item">
+                  <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M3.75 5.25L3 6V18L3.75 18.75H20.25L21 18V6L20.25 5.25H3.75ZM4.5 7.6955V17.25H19.5V7.69525L11.9999 14.5136L4.5 7.6955ZM18.3099 6.75H5.68986L11.9999 12.4864L18.3099 6.75Z" fill="#000"></path>
+                    </g>
+                  </svg>
+                  <span><a href="mailto:{{ location.email }}">{{ location.email }}</a></span>
+                </div>
+              {% endif %}
+
+              <div class="contacts-block-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2C6.486 2 2 6.486 2 12C2 17.514 6.486 22 12 22C17.514 22 22 17.514 22 12C22 6.486 17.514 2 12 2ZM12 20C7.589 20 4 16.411 4 12C4 7.589 7.589 4 12 4C16.411 4 20 7.589 20 12C20 16.411 16.411 20 12 20Z" fill="#1A1A1A" />
+                  <path d="M13 7H11V13H17V11H13V7Z" fill="#1A1A1A" />
+                </svg>
+
+                <span>{{ location.open }}</span>
+              </div>
+
+              <a href="{{ location.comment }}" class="contacts-block-map" target="_blank" rel="nofollow">На карті</a>
+
+              {% if location.images %}
+                <div class="contacts-gallery contacts-gallery-{{ loop.index0 }}">
+                  <div class="swiper">
+                    <div class="swiper-wrapper">
+                      {% set index = loop.index0 %}
+                      {% for image in location.images %}
+                        <div class="swiper-slide contacts-gallery-slide">
+                          <a href="/image/{{ image }}" class="contacts-gallery-slide-image" data-fancybox="contacts-gallery-{{ index }}">
+                            <div class="contacts-gallery-slide-image__wrapper">
+                              <img src="/image/{{ image }}" alt="contacts-gallery" />
+                            </div>
+                          </a>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                  <div class="swiper-pagination"></div>
+                </div>
+              {% endif %}
+
+              <div class="contacts__button _button">
+                <span>Детальніше про магазин</span>
+                <span>Сховати</span>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <div class="contacts-block">
+        <div class="contacts-block__title">Зворотній зв'язок</div>
+        <div class="contacts-block__wrapper">
+          <div class="contacts-form">
+            <form action="{{ action }}" method="post" enctype="multipart/form-data">
+              <label for="input-name">
+                Ім’я*<input type="text" name="name" value="{{ name }}" id="input-name" />
+                {% if error_name %}
+                  <div class="text-danger">{{ error_name }}</div>
+                {% endif %}
+              </label>
+              <label for="input-email">
+                Email*<input type="text" name="email" value="{{ email }}" id="input-email" />
+                {% if error_email %}
+                  <div class="text-danger">{{ error_email }}</div>
+                {% endif %}
+              </label>
+              <label for="input-enquiry">
+                Коментар*<textarea name="enquiry" rows="10" id="input-enquiry"></textarea>
+                {% if error_enquiry %}
+                  <div class="text-danger">{{ error_enquiry }}</div>
+                {% endif %}
+              </label>
+              <p>Поля, позначені *, є обов'язковими для заповнення.</p>
+              {{ captcha }}
+              <input type="hidden" name="form_name" value="contact" />
+              <input type="submit" class="_button" value="Відправити" />
+            </form>
+
+            <div class="contacts-form-image">
+              <div class="contacts-form-image__wrapper">
+                <img src="/image/{{ contacts_form_image }}" alt="contacts-form" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ footer }}

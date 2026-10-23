@@ -1,0 +1,144 @@
+{{ header }}
+{{ column_left }}
+
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <h1>{{ heading_title }}</h1>
+            <ul class="breadcrumb">
+                {% for breadcrumb in breadcrumbs %}
+                    <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+                {% endfor %}
+            </ul>
+            <div class="pull-right">
+                <button id="buttonSave" form="form-module" data-toggle="tooltip" title="{{ button_save }}"
+                        class="btn btn-primary"><i class="fa fa-save"></i></button>
+                <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i
+                            class="fa fa-reply"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        {% if error_warning %}
+            <div class="alert alert-danger autoSlideUp"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        {% endif %}
+
+        {% if success %}
+            <div class="alert alert-success autoSlideUp"><i class="fa fa-check-circle"></i> {{ success }}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+            <script>
+                $('.autoSlideUp').delay(3000).fadeOut(600, function () {
+                    $(this).show().css({'visibility': 'hidden'});
+                }).slideUp(600);
+            </script>
+        {% endif %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span>{{ heading_title }}</span></h3>
+                <div class="storeSwitcherWidget pull-right">
+                    <button type="button" class="btn btn-default btn-sm dropdown-toggle"
+                            data-toggle="dropdown">{{ store.name }} {% if(store.store_id == 0) %} {{ text_default }} {% endif %}
+                        &nbsp;<span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+                    <ul class="dropdown-menu" role="menu">
+                        {% for st in stores %}
+                            <li>
+                                <a href="index.php?route={{ module_path }}&store_id={{ st.store_id }}&user_token={{ user_token }}">{{ st.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form">
+                    <input type="hidden" name="store_id" value="{{ store.store_id }} "/>
+                    <div class="tabbable">
+                        <div class="tab-navigation form-inline">
+                            <ul class="nav nav-tabs mainMenuTabs" id="mainTabs">
+                                <li><a href="#app_info" data-toggle="tab">{{ general_title }}</a></li>
+                                <li><a href="#events" data-toggle="tab">{{ events_title }}</a></li>
+                                <li><a href="#settings" data-toggle="tab">{{ settings_title }}</a></li>
+                                <li><a href="#clickatell" data-toggle="tab">{{ clickatell_title }}</a></li>
+                                <li><a href="#gatewayapi" data-toggle="tab">{{ gatewayapi_title }}</a></li>
+                                <li><a href="#bulk_gate" data-toggle="tab">{{ bulk_gate_title }}</a></li>
+                                <li><a href="#turbo_sms" data-toggle="tab">{{ turbo_sms_title }}</a></li>
+                                <li><a href="#sms_ru" data-toggle="tab">{{ sms_ru_title }}</a></li>
+                                <li><a href="#e_pochta" data-toggle="tab">{{ e_pochta_title }}</a></li>
+                                <li><a href="#red_sms" data-toggle="tab">{{ red_sms_title }}</a></li>
+                                <li><a href="#bytehand" data-toggle="tab">{{ bytehand_title }}</a></li>
+                                <li><a href="#intel_tele" data-toggle="tab">{{ intel_tele_title }}</a></li>
+                                <li><a href="#digital_direct" data-toggle="tab">{{ digital_direct_title }}</a></li>
+                                <li><a href="#twilio" data-toggle="tab">{{ twilio_title }}</a></li>
+                            </ul>
+                        </div>
+                        <div class="tab-content">
+                            <div id="app_info" class="tab-pane fade">{{ tab_app }}</div>
+                            <div id="events" class="tab-pane fade">{{ tab_events }}</div>
+                            <div id="settings" class="tab-pane fade">{{ tab_settings }}</div>
+                            <div id="clickatell" class="tab-pane fade">{{ tab_clickatell }}</div>
+                            <div id="gatewayapi" class="tab-pane fade">{{ tab_gatewayapi }}</div>
+                            <div id="bulk_gate" class="tab-pane fade">{{ tab_bulk_gate }}</div>
+                            <div id="turbo_sms" class="tab-pane fade">{{ tab_turbo_sms }}</div>
+                            <div id="sms_ru" class="tab-pane fade">{{ tab_sms_ru }}</div>
+                            <div id="e_pochta" class="tab-pane fade">{{ tab_e_pochta }}</div>
+                            <div id="red_sms" class="tab-pane fade">{{ tab_red_sms }}</div>
+                            <div id="bytehand" class="tab-pane fade">{{ tab_bytehand }}</div>
+                            <div id="intel_tele" class="tab-pane fade">{{ tab_intel_tele }}</div>
+                            <div id="digital_direct" class="tab-pane fade">{{ tab_digital_direct }}</div>
+                            <div id="twilio" class="tab-pane fade">{{ tab_twilio }}</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function formatState(state) {
+        if (!state.id) {
+            return state.text;
+        }
+
+        return $(
+            '<span><img src="view/image/pinta_sms_sender/country_flags/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text +
+            '</span><span style="float:right;" class="dial_code">(' + state.element.getAttribute('data-country-code').toLowerCase() + ')</span>'
+        );
+    }
+
+    $(function () {
+        $(document).delegate('#buttonSave', 'click', function (e) {
+            let selectedApi = $('#general_api').find('option[selected="selected"]');
+            $('input[name="PintaSmsSender[Api][Name]"]').val(selectedApi.text());
+            $('input[name="PintaSmsSender[Api][ClassName]"]').val(selectedApi.data('class_name'));
+            $('#form').submit();
+        });
+
+        $('.mainMenuTabs a:first').tab('show');
+        $('.mainMenuTabs a:first').click();
+
+        if (window.localStorage && window.localStorage['currentTab']) {
+            $('.mainMenuTabs a[href="' + window.localStorage['currentTab'] + '"]').tab('show');
+        }
+
+        if (window.localStorage && window.localStorage['currentSubTab']) {
+            $('a[href="' + window.localStorage['currentSubTab'] + '"]').tab('show');
+        }
+
+        $('.mainMenuTabs a[data-toggle="tab"]').click(function () {
+            if (window.localStorage) {
+                window.localStorage['currentTab'] = $(this).attr('href');
+            }
+        });
+
+        $('a[data-toggle="tab"]:not(.mainMenuTabs a[data-toggle="tab"], .app_info a[data-toggle="tab"])').click(function () {
+            if (window.localStorage) {
+                window.localStorage['currentSubTab'] = $(this).attr('href');
+            }
+        });
+    });
+
+</script>
+{{ footer }}

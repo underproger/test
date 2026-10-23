@@ -1,0 +1,281 @@
+{{ header }}
+
+<nav class="breadcrumbs" aria-label="breadcrumb">
+  <div class="_container">
+    <ol class="breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="breadcrumb-item">
+          <a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</nav>
+
+<section class="article">
+  <div class="article__banner">
+    <img src="{{ image }}" alt="article-banner" />
+  </div>
+  <h1 class="article__title h2 section-title">{{ heading_title }}</h1>
+
+  {# <div class="article-info">
+    <div class="article-info__item">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_317_1840)">
+          <path d="M9 9C9.89002 9 10.76 8.73608 11.5001 8.24162C12.2401 7.74715 12.8169 7.04434 13.1575 6.22208C13.4981 5.39981 13.5872 4.49501 13.4135 3.6221C13.2399 2.74918 12.8113 1.94736 12.182 1.31802C11.5526 0.688685 10.7508 0.260102 9.87791 0.0864683C9.00499 -0.0871652 8.10019 0.00194979 7.27792 0.342544C6.45566 0.683138 5.75285 1.25991 5.25839 1.99994C4.76392 2.73996 4.5 3.60999 4.5 4.5C4.50119 5.69311 4.97568 6.83701 5.81934 7.68067C6.66299 8.52432 7.80689 8.99881 9 9ZM9 1.5C9.59334 1.5 10.1734 1.67595 10.6667 2.00559C11.1601 2.33524 11.5446 2.80377 11.7716 3.35195C11.9987 3.90013 12.0581 4.50333 11.9424 5.08527C11.8266 5.66722 11.5409 6.20177 11.1213 6.62132C10.7018 7.04088 10.1672 7.3266 9.58527 7.44236C9.00333 7.55811 8.40013 7.4987 7.85195 7.27164C7.30377 7.04458 6.83524 6.66006 6.50559 6.16671C6.17595 5.67337 6 5.09335 6 4.5C6 3.70435 6.31607 2.94129 6.87868 2.37868C7.44129 1.81607 8.20435 1.5 9 1.5Z" fill="#1A1A1A" />
+          <path d="M9 10.5005C7.2104 10.5025 5.49466 11.2143 4.22922 12.4797C2.96378 13.7452 2.25199 15.4609 2.25 17.2505C2.25 17.4494 2.32902 17.6402 2.46967 17.7808C2.61032 17.9215 2.80109 18.0005 3 18.0005C3.19891 18.0005 3.38968 17.9215 3.53033 17.7808C3.67098 17.6402 3.75 17.4494 3.75 17.2505C3.75 15.8581 4.30312 14.5227 5.28769 13.5382C6.27226 12.5536 7.60761 12.0005 9 12.0005C10.3924 12.0005 11.7277 12.5536 12.7123 13.5382C13.6969 14.5227 14.25 15.8581 14.25 17.2505C14.25 17.4494 14.329 17.6402 14.4697 17.7808C14.6103 17.9215 14.8011 18.0005 15 18.0005C15.1989 18.0005 15.3897 17.9215 15.5303 17.7808C15.671 17.6402 15.75 17.4494 15.75 17.2505C15.748 15.4609 15.0362 13.7452 13.7708 12.4797C12.5053 11.2143 10.7896 10.5025 9 10.5005Z" fill="#1A1A1A" />
+        </g>
+        <defs>
+          <clipPath id="clip0_317_1840">
+            <rect width="18" height="18" fill="white" />
+          </clipPath>
+        </defs>
+      </svg>
+
+      <span>Аліна Рау</span>
+    </div>
+    <div class="article-info__item">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_317_1862)">
+          <path d="M14.25 1.5H13.5V0.75C13.5 0.551088 13.421 0.360322 13.2803 0.21967C13.1397 0.0790176 12.9489 0 12.75 0C12.5511 0 12.3603 0.0790176 12.2197 0.21967C12.079 0.360322 12 0.551088 12 0.75V1.5H6V0.75C6 0.551088 5.92098 0.360322 5.78033 0.21967C5.63968 0.0790176 5.44891 0 5.25 0C5.05109 0 4.86032 0.0790176 4.71967 0.21967C4.57902 0.360322 4.5 0.551088 4.5 0.75V1.5H3.75C2.7558 1.50119 1.80267 1.89666 1.09966 2.59966C0.396661 3.30267 0.00119089 4.2558 0 5.25L0 14.25C0.00119089 15.2442 0.396661 16.1973 1.09966 16.9003C1.80267 17.6033 2.7558 17.9988 3.75 18H14.25C15.2442 17.9988 16.1973 17.6033 16.9003 16.9003C17.6033 16.1973 17.9988 15.2442 18 14.25V5.25C17.9988 4.2558 17.6033 3.30267 16.9003 2.59966C16.1973 1.89666 15.2442 1.50119 14.25 1.5ZM1.5 5.25C1.5 4.65326 1.73705 4.08097 2.15901 3.65901C2.58097 3.23705 3.15326 3 3.75 3H14.25C14.8467 3 15.419 3.23705 15.841 3.65901C16.2629 4.08097 16.5 4.65326 16.5 5.25V6H1.5V5.25ZM14.25 16.5H3.75C3.15326 16.5 2.58097 16.2629 2.15901 15.841C1.73705 15.419 1.5 14.8467 1.5 14.25V7.5H16.5V14.25C16.5 14.8467 16.2629 15.419 15.841 15.841C15.419 16.2629 14.8467 16.5 14.25 16.5Z" fill="#1A1A1A" />
+          <path d="M9 12.375C9.62132 12.375 10.125 11.8713 10.125 11.25C10.125 10.6287 9.62132 10.125 9 10.125C8.37868 10.125 7.875 10.6287 7.875 11.25C7.875 11.8713 8.37868 12.375 9 12.375Z" fill="#1A1A1A" />
+          <path d="M5.25 12.375C5.87132 12.375 6.375 11.8713 6.375 11.25C6.375 10.6287 5.87132 10.125 5.25 10.125C4.62868 10.125 4.125 10.6287 4.125 11.25C4.125 11.8713 4.62868 12.375 5.25 12.375Z" fill="#1A1A1A" />
+          <path d="M12.75 12.375C13.3713 12.375 13.875 11.8713 13.875 11.25C13.875 10.6287 13.3713 10.125 12.75 10.125C12.1287 10.125 11.625 10.6287 11.625 11.25C11.625 11.8713 12.1287 12.375 12.75 12.375Z" fill="#1A1A1A" />
+        </g>
+        <defs>
+          <clipPath id="clip0_317_1862">
+            <rect width="18" height="18" fill="white" />
+          </clipPath>
+        </defs>
+      </svg>
+
+      <span>{{ date_added }}</span>
+    </div>
+    <div class="article-info__item">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 6.6C7.5222 6.6 6.3 7.8231 6.3 9.3C6.3 10.7778 7.5222 12 9 12C10.4769 12 11.7 10.7778 11.7 9.3C11.7 7.8231 10.4769 6.6 9 6.6Z" fill="#1A1A1A" />
+        <path d="M9 3C2.1672 3 0.113686 8.9553 0.0948877 9.0156L0 9.3L0.0939926 9.5844C0.113686 9.6447 2.1672 15.6 9 15.6C15.8328 15.6 17.8863 9.6447 17.9051 9.5844L18 9.3L17.906 9.0156C17.8863 8.9553 15.8328 3 9 3ZM9 13.8C4.20997 13.8 2.35429 10.3386 1.90491 9.3C2.35608 8.2578 4.21265 4.8 9 4.8C13.79 4.8 15.6457 8.2614 16.0951 9.3C15.6439 10.3422 13.7873 13.8 9 13.8Z" fill="#1A1A1A" />
+      </svg>
+
+      <span>{{ viewed }}</span>
+    </div>
+    <div class="article-info__item">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_317_1891)">
+          <path d="M18 12V15.75C18 16.3467 17.7629 16.919 17.341 17.341C16.919 17.7629 16.3467 18 15.75 18H12C10.9478 17.9989 9.91443 17.7212 9.00349 17.1946C8.09255 16.668 7.33609 15.9112 6.81 15C7.3754 14.9959 7.93888 14.9336 8.4915 14.814C8.91236 15.3402 9.44625 15.765 10.0536 16.0569C10.6609 16.3487 11.3262 16.5002 12 16.5H15.75C15.9489 16.5 16.1397 16.421 16.2803 16.2803C16.421 16.1397 16.5 15.9489 16.5 15.75V12C16.4998 11.3259 16.3479 10.6605 16.0555 10.0532C15.7631 9.4458 15.3378 8.91204 14.811 8.49148C14.9316 7.93897 14.995 7.37549 15 6.80998C15.9112 7.33607 16.6681 8.09252 17.1946 9.00347C17.7212 9.91441 17.9989 10.9478 18 12ZM13.4827 7.23823C13.5529 6.27196 13.4142 5.30191 13.0761 4.394C12.7381 3.48609 12.2085 2.6616 11.5234 1.97654C10.8384 1.29149 10.0139 0.761927 9.10598 0.423846C8.19807 0.0857639 7.22802 -0.0529165 6.26175 0.0172277C4.54944 0.212777 2.96769 1.02761 1.81438 2.30828C0.66107 3.58896 0.0157704 5.24711 0 6.97048L0 10.7505C0 12.6495 1.13025 13.5 2.25 13.5H6.525C8.2491 13.4851 9.90826 12.8403 11.1898 11.6869C12.4714 10.5335 13.2869 8.95124 13.4827 7.23823ZM10.4625 3.03823C10.995 3.57186 11.4066 4.21363 11.6695 4.92012C11.9324 5.62661 12.0405 6.38134 11.9865 7.13323C11.8264 8.47099 11.1829 9.70409 10.177 10.6004C9.17112 11.4968 7.87229 11.9945 6.525 12H2.25C1.554 12 1.5 11.0437 1.5 10.7505V6.97048C1.50625 5.62376 2.00449 4.32576 2.90094 3.32074C3.79739 2.31572 5.03025 1.67298 6.3675 1.51348C6.492 1.50448 6.6165 1.49998 6.741 1.49998C7.43195 1.49933 8.11626 1.63486 8.75481 1.8988C9.39337 2.16274 9.97365 2.54992 10.4625 3.03823Z" fill="#1A1A1A" />
+        </g>
+        <defs>
+          <clipPath id="clip0_317_1891">
+            <rect width="18" height="18" fill="white" />
+          </clipPath>
+        </defs>
+      </svg>
+
+      <span>{{ reviews }}</span>
+    </div>
+  </div> #}
+
+  <div class="article__text _typography">{{ description }}</div>
+</section>
+
+<script type="text/javascript"><!--
+$('#button-cart').on('click', function() {
+	$.ajax({
+		url: 'index.php?route=checkout/cart/add',
+		type: 'post',
+		data: $('#product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea'),
+		dataType: 'json',
+		beforeSend: function() {
+			$('#button-cart').button('loading');
+		},
+		complete: function() {
+			$('#button-cart').button('reset');
+		},
+		success: function(json) {
+			$('.alert-dismissible, .text-danger').remove();
+			$('.form-group').removeClass('has-error');
+
+			if (json['error']) {
+				if (json['error']['option']) {
+					for (i in json['error']['option']) {
+						var element = $('#input-option' + i.replace('_', '-'));
+
+						if (element.parent().hasClass('input-group')) {
+							element.parent().after('<div class="text-danger">' + json['error']['option'][i] + '</div>');
+						} else {
+							element.after('<div class="text-danger">' + json['error']['option'][i] + '</div>');
+						}
+					}
+				}
+
+				if (json['error']['recurring']) {
+					$('select[name=\'recurring_id\']').after('<div class="text-danger">' + json['error']['recurring'] + '</div>');
+				}
+
+				// Highlight any found errors
+				$('.text-danger').parent().addClass('has-error');
+			}
+
+			if (json['success']) {
+				$('.breadcrumb').after('<div class="alert alert-success alert-dismissible">' + json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+				$('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
+
+				$('html, body').animate({ scrollTop: 0 }, 'slow');
+
+				$('#cart > ul').load('index.php?route=common/cart/info ul li');
+			}
+		},
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+	});
+});
+//--></script>
+<script type="text/javascript"><!--
+$('.date').datetimepicker({
+	language: '{{ datepicker }}',
+	pickTime: false
+});
+
+$('.datetime').datetimepicker({
+	language: '{{ datepicker }}',
+	pickDate: true,
+	pickTime: true
+});
+
+$('.time').datetimepicker({
+	language: '{{ datepicker }}',
+	pickDate: false
+});
+
+$('button[id^=\'button-upload\']').on('click', function() {
+	var node = this;
+
+	$('#form-upload').remove();
+
+	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file" /></form>');
+
+	$('#form-upload input[name=\'file\']').trigger('click');
+
+	if (typeof timer != 'undefined') {
+    	clearInterval(timer);
+	}
+
+	timer = setInterval(function() {
+		if ($('#form-upload input[name=\'file\']').val() != '') {
+			clearInterval(timer);
+
+			$.ajax({
+				url: 'index.php?route=tool/upload',
+				type: 'post',
+				dataType: 'json',
+				data: new FormData($('#form-upload')[0]),
+				cache: false,
+				contentType: false,
+				processData: false,
+				beforeSend: function() {
+					$(node).button('loading');
+				},
+				complete: function() {
+					$(node).button('reset');
+				},
+				success: function(json) {
+					$('.text-danger').remove();
+
+					if (json['error']) {
+						$(node).parent().find('input').after('<div class="text-danger">' + json['error'] + '</div>');
+					}
+
+					if (json['success']) {
+						alert(json['success']);
+
+						$(node).parent().find('input').val(json['code']);
+					}
+				},
+				error: function(xhr, ajaxOptions, thrownError) {
+					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+				}
+			});
+		}
+	}, 500);
+});
+//--></script>
+<script type="text/javascript"><!--
+$('#review').delegate('.pagination a', 'click', function(e) {
+    e.preventDefault();
+
+    $('#review').fadeOut('slow');
+
+    $('#review').load(this.href);
+
+    $('#review').fadeIn('slow');
+});
+
+$('#review').load('index.php?route=blog/article/review&article_id={{ article_id }}');
+
+$('#button-review').on('click', function() {
+	$.ajax({
+		url: 'index.php?route=blog/article/write&article_id={{ article_id }}',
+		type: 'post',
+		dataType: 'json',
+		data: $("#form-review").serialize(),
+		beforeSend: function() {
+			$('#button-review').button('loading');
+		},
+		complete: function() {
+			$('#button-review').button('reset');
+		},
+		success: function(json) {
+			$('.alert-dismissible').remove();
+
+			if (json['error']) {
+				$('#review').after('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
+			}
+
+			if (json['success']) {
+				$('#review').after('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
+
+				$('input[name=\'name\']').val('');
+				$('textarea[name=\'text\']').val('');
+				$('input[name=\'rating\']:checked').prop('checked', false);
+			}
+		}
+	});
+});
+
+$(document).ready(function() {
+	$('.thumbnails').magnificPopup({
+		type:'image',
+		delegate: 'a',
+		gallery: {
+			enabled: true
+		}
+	});
+});
+//--></script>
+<script type="text/javascript"><!--
+$(document).ready(function() {
+  $('#description').find('a>img').each(function(){
+    $(this).parent().addClass('gallery');
+  });
+  $('#description').magnificPopup({
+    delegate: 'a.gallery',
+    type: 'image',
+    gallery: {
+        enabled: true
+    }
+  });
+
+  gotoReview = function() {
+    offset = $('#form-review').offset();
+    $('html, body').animate({ scrollTop: offset.top-20 }, 'slow');
+  }
+  gotoReviewWrite = function() {
+    offset = $('#form-review h2').offset();
+    $('html, body').animate({ scrollTop: offset.top-20 }, 'slow');
+  }
+  
+});
+--></script>
+{{ footer }}

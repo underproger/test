@@ -1,0 +1,55 @@
+<table class="table">
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ text_info }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <span class="help"><i class="fa fa-info-circle"></i>&nbsp;{{ e_pochta_help_keys }}</span>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ e_pochta_public_key }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="PintaSmsSender[EPochta][PublicKey]" value="{{ data.PintaSmsSender.EPochta.PublicKey ? data.PintaSmsSender.EPochta.PublicKey : "" }}" />
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ e_pochta_private_key }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="PintaSmsSender[EPochta][PrivateKey]" value="{{ data.PintaSmsSender.EPochta.PrivateKey ? data.PintaSmsSender.EPochta.PrivateKey : "" }}" />
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ e_pochta_sender }}</strong></h5>
+            <span class="help"><i class="fa fa-info-circle"></i>&nbsp;{{ e_pochta_help_sender }}</span>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group" name="phone_input">
+                    <input type="text" class="form-control" name="PintaSmsSender[EPochta][Sender]" maxlength="15" value="{{ data.PintaSmsSender.EPochta.Sender ? data.PintaSmsSender.EPochta.Sender : "" }}" />
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>

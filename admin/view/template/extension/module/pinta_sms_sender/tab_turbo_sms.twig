@@ -1,0 +1,41 @@
+<table class="table">
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ text_info }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <span class="help"><i class="fa fa-info-circle"></i>&nbsp;{{ turbo_sms_help_token }}</span>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ turbo_sms_token }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="PintaSmsSender[TurboSms][Token]" value="{{ data.PintaSmsSender.TurboSms.Token ? data.PintaSmsSender.TurboSms.Token : "" }}" />
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ turbo_sms_sender }}</strong></h5>
+            <span class="help"><i class="fa fa-info-circle"></i>&nbsp;{{ turbo_sms_help_sender }}</span>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group" name="phone_input">
+                    <input type="text" class="form-control" name="PintaSmsSender[TurboSms][Sender]" maxlength="15" value="{{ data.PintaSmsSender.TurboSms.Sender ? data.PintaSmsSender.TurboSms.Sender : "" }}" />
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>

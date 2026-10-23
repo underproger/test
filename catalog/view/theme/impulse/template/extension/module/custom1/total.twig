@@ -1,0 +1,61 @@
+<div id="custom-total" class="checkout-cart-footer">
+  <div class="checkout-cart-footer-total">
+    <div class="checkout-cart-footer-total__label">Всього:</div>
+    <div class="checkout-cart-footer-total__price">{{ total }}</div>
+  </div>
+
+  <input type="button" value="Оформлення замовлення" id="button-custom-order" data-loading-text="{{ text_loading }}" class="" style="display: block!important" />
+</div>
+
+<script>
+$(document).ready(function() {
+
+  $('#button-custom-order').on('click', function(){
+
+  	{% if (not logged) %} 
+
+			checkoutCustomer()
+				{% if (login is defined and login != constant('false')) %} 
+					.then( checkoutLogin )
+				{% endif %} 
+				{% if (shipping is defined and shipping != constant('false')) %} 
+					.then( checkoutShipping )
+				{% endif %} 
+					.then( checkoutPayment )
+				{% if (comment is defined and comment != constant('false')) %} 
+					.then( checkoutComment )
+				{% endif %} 
+					.then( checkoutConfirm )
+					.catch( failureCallback );
+
+  	{% else %} 
+
+  		{% if (shipping is defined and shipping != constant('false')) %} 
+
+  			checkoutShipping()
+  				.then( checkoutPayment )
+  				{% if (comment is defined and comment != constant('false')) %} 
+					.then( checkoutComment )
+				{% endif %} 
+				.then( checkoutConfirm )
+				.catch( failureCallback );
+
+  		{% else %} 
+
+  			checkoutPayment()
+  				{% if (comment is defined and comment != constant('false')) %} 
+						.then( checkoutComment )
+					{% endif %} 
+					.then( checkoutConfirm )
+					.catch( ailureCallback );
+
+
+  		{% endif %}	
+
+  	{% endif %} 
+
+  });
+
+});
+  
+</script>

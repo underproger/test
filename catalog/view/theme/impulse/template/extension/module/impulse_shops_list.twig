@@ -1,0 +1,35 @@
+{% if locations %}
+  <section class="shops">
+    <div class="_container">
+      <div class="shops__title h2 section-title">{{ heading_title }}</div>
+      <div class="shops__wrapper">
+        <div class="shops__header">
+          {% for location in locations %}
+            <div class="shops__header-item">{{ location.geocode }}</div>
+          {% endfor %}
+        </div>
+        <div class="shops__list">
+          {% for location in locations %}
+            <div class="shops__item">
+              {% if location.images %}
+                <div class="shops__item-slider shops__item-slider-{{ loop.index0 }}">
+                  <div class="swiper">
+                    <div class="swiper-wrapper">
+                      {% set index = loop.index0 %}
+                      {% for image in location.images %}
+                        <div class="swiper-slide shops__item-slide">
+                          <a href="/image/{{ image }}" class="shops__item-image" data-fancybox="shops__item-{{ index }}"><img src="/image/{{ image }}" alt="" /></a>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                  <div class="swiper-pagination"></div>
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}

@@ -1,0 +1,39 @@
+<table class="table">
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ text_info }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <span class="help"><i class="fa fa-info-circle"></i>&nbsp;{{ sms_ru_help_api }}</span>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ sms_ru_api_id }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group" name="api_input">
+                    <input type="text" class="form-control" name="PintaSmsSender[SmsRu][ApiId]" value="{{ data.PintaSmsSender.SmsRu.ApiId ? data.PintaSmsSender.SmsRu.ApiId : "" }}" />
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ sms_ru_sender }}</strong></h5>
+            <span class="help"><i class="fa fa-info-circle"></i>&nbsp;{{ sms_ru_help_sender }}</span>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group" name="phone_input">
+                    <input type="text" class="form-control" name="PintaSmsSender[SmsRu][Sender]" maxlength="15" value="{{ data.PintaSmsSender.SmsRu.Sender ? data.PintaSmsSender.SmsRu.Sender : "" }}" />
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>

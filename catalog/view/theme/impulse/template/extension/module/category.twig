@@ -1,0 +1,28 @@
+<div class="catalog-filters-item accordion-item">
+  <h2 class="accordion-header"><button class="catalog-filters-item__button accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#filterPanelsStayOpen-collapseType" aria-expanded="true" aria-controls="filterPanelsStayOpen-collapseType">Тип товару</button></h2>
+  <div id="filterPanelsStayOpen-collapseType" class="accordion-collapse collapse show">
+    <div class="accordion-body catalog-filters-type">
+      {% for category in categories %}
+        {# {% if ( category.category_id != 60 and category.category_id != 61 ) %} #}
+        <div class="catalog-filters-type-item {{ category_id == category.category_id ? '_active' : '' }}">
+          <a href="{{ category.href }}"> - {{ category.name }}</a>
+        </div>
+        {# {% endif %} #}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{# <div class="catalog-filters-item accordion-item">
+  <h2 class="accordion-header"><button class="catalog-filters-item__button accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#filterPanelsStayOpen-collapseSeason" aria-expanded="true" aria-controls="filterPanelsStayOpen-collapseSeason">Сезон</button></h2>
+  <div id="filterPanelsStayOpen-collapseSeason" class="accordion-collapse collapse show">
+    <div class="accordion-body catalog-filters-type">
+      {% for category in categories %}
+        {% if ( category.category_id == 60 or category.category_id == 61 ) %}
+        <div class="catalog-filters-type-item {{ category_id == category.category_id ? '_active' : '' }}">
+          <a href="{{ category.href }}"> - {{ category.name }}</a>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div> #}

@@ -1,0 +1,60 @@
+{{ header }}
+
+<nav class="breadcrumbs" aria-label="breadcrumb">
+  <div class="_container">
+    <ol class="breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="breadcrumb-item">
+          <a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</nav>
+
+<section id="account-address" class="account">
+  <div class="_container">
+    <div class="account__wrapper">
+      <h1 class="account__title h2 section-title">Особистий кабінет</h1>
+      <div class="account-nav">
+        <a href="{{ edit }}" class="account-nav__item"><span>Особисті данні</span></a>
+        <a href="{{ order }}" class="account-nav__item"><span>Історія замовлень</span></a>
+        <a href="{{ wishlist }}" class="account-nav__item"><span>Обрані товари</span></a>
+        <a href="{{ address }}" class="account-nav__item _active"><span>Адреса отримання</span></a>
+        <a href="{{ logout }}" class="account-nav__item"><span>Вийти</span></a>
+        {# <a href="#" class="account-nav__item"><span>Платіжні данні</span></a> #}
+      </div>
+
+      <div class="account-main">
+        <div class="account-main__title">Адреса отримання</div>
+        <div class="account-list">
+          {% if addresses %}
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover">
+                {% for result in addresses %}
+                  <form action="{{ result.delete }}" method="post" enctype="multipart/form-data" id="form-address-{{ result.address_id }}">
+                    <tr>
+                      <td class="text-left">{{ result.address }}</td>
+                      <td class="text-right" style="width:30%;">
+                        <a href="{{ result.update }}" class="btn btn-dark">{{ button_edit }}</a> &nbsp;
+                        <a href="{{ result.delete }}" data-toggle="tooltip" title="{{ button_delete }}" class="btn btn-danger" onclick="return confirm('{{ text_confirm }}')">{{ button_delete }}</a>
+                      </td>
+                    </tr>
+                  </form>
+                {% endfor %}
+              </table>
+            </div>
+          {% else %}
+            <p>{{ text_empty }}</p>
+          {% endif %}
+
+          <div class="pull-right">
+            <a href="{{ add }}" class="btn btn-dark">{{ button_new_address }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ footer }}

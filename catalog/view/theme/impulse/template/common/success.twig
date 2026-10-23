@@ -1,0 +1,28 @@
+{{ header }}
+
+<section class="success">
+  <div class="_container">
+    <div class="success__wrapper">
+      <div class="success-image">
+        <div class="success-image__wrapper">
+          <img src="/image/catalog/images/success.jpg" alt="success" />
+        </div>
+      </div>
+
+      <div class="success__main">
+        {% if is_subscribe %}
+          <h1 class="success__title">Дякуємо за підписку!</h1>
+        {% elseif is_form %}
+          <h1 class="success__title">Дякуємо за звернення!</h1>
+        {% else %}
+          <h1 class="success__title">Дякуємо за замовлення!</h1>
+        {% endif %}
+
+        <div class="success__text">Ми зв'яжемося з вами найближчим часом</div>
+        <a href="{{continue}}" class="success__button _button">Перейти на головну сторінку</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ footer }}

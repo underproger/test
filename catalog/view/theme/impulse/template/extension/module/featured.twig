@@ -1,0 +1,87 @@
+<section class="weekly">
+  <div class="_container">
+    <div class="weekly__wrapper">
+      <h2 class="weekly__title h2 section-title">{{ name }}</h2>
+
+      <div class="weekly-slider">
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            {% for product in products %}
+              <div class="swiper-slide weekly-slide product-card">
+                <a href="{{ product.href }}" class="product-card-image">
+                  <div class="product-card-image__wrapper">
+                    <img class="main" src="{{ product.thumb }}" alt="" />
+
+                    {% if product.second_image %}
+                    <img class="second" src="{{ product.second_image }}" alt="" />
+                    {% endif %}
+                    {% if product.options %}
+                      <div class="product-card-sizes">
+                        {% for option in product.options %}
+                          {% for option_value in option.product_option_value %}
+                            <span>{{ option_value.name }}</span>
+                          {% endfor %}
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+                  </div>
+                </a>
+                <div class="product-card-info">
+                  <a href="{{ product.href }}" class="product-card-info__title">{{ product.manufacturer }}</a>
+                  <a href="{{ product.main_category_href }}" class="product-card-info__cat">{{ product.name }}</a>
+
+                  {% if product.price %}
+                    <div class="product-card-info__price">
+                      {% if not product.special %}
+                        <span class="current">{{ product.price }}</span>
+                      {% else %}
+                        <span class="old">{{ product.price }}</span>
+                        <span class="current">{{ product.special }}</span>
+                      {% endif %}
+                    </div>
+
+                    <p class="price"></p>
+
+                  {% endif %}
+                </div>
+                {% if product.label_text %}
+                    <div class="product-card-sale">{{product.label_text}}</div>
+                  {% endif %}
+                <button class="product-card-favorite {{ product.is_favorite ? '_active' }}" data-id="product_id={{ product.product_id }}">
+                  <svg width="26" height="26" viewBox="0 0 26 26" fill="#585858" xmlns="http://www.w3.org/2000/svg" onclick="wishlist.add('{{ product.product_id }}');">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M13.4329 6.06706C13.0651 5.6433 12.6362 5.27328 12.1631 4.96466C11.1175 4.28263 9.85569 3.90039 8.55794 3.90039C5.22128 3.90039 2.59961 6.47205 2.59961 9.74508C2.59961 10.908 2.87666 12.0124 3.35126 13.0631C4.82326 16.3247 8.19585 19.0771 11.0989 21.4464C11.9347 22.1285 12.7316 22.7788 13.4329 23.4004C14.1343 22.7788 14.9312 22.1285 15.767 21.4464C18.67 19.0772 22.0425 16.3248 23.5146 13.0632C23.9892 12.0125 24.2663 10.9081 24.2663 9.74508C24.2663 6.47205 21.6446 3.90039 18.3079 3.90039C17.0102 3.90039 15.7484 4.28263 14.7028 4.96466C14.2297 5.27328 13.8008 5.6433 13.4329 6.06706ZM13.4329 20.5511C13.7826 20.2613 14.1401 19.9691 14.497 19.6773C14.7993 19.4301 15.1012 19.1833 15.3976 18.9385C16.5844 17.9587 17.7461 16.9632 18.7748 15.92C20.0478 14.629 20.9939 13.3864 21.5448 12.1599C21.9081 11.3502 22.0996 10.5481 22.0996 9.74508C22.0996 7.70782 20.4875 6.06706 18.3079 6.06706C17.0205 6.06706 15.819 6.6236 15.0691 7.48743L13.4329 9.37213L11.7968 7.48743C11.0469 6.6236 9.84541 6.06706 8.55794 6.06706C6.37837 6.06706 4.76628 7.70782 4.76628 9.74508C4.76628 10.5481 4.95774 11.3502 5.32109 12.1599C5.87203 13.3864 6.81814 14.629 8.09113 15.92C9.1198 16.9632 10.2815 17.9587 11.4682 18.9385C11.7647 19.1833 12.0666 19.4301 12.3689 19.6773C12.7258 19.9691 13.0833 20.2613 13.4329 20.5511Z" fill="inherit" />
+                  </svg>
+                  <svg width="26" height="26" viewBox="0 0 26 26" fill="#585858" xmlns="http://www.w3.org/2000/svg" onclick="wishlist.remove('{{ product.product_id }}');">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M13.4329 6.06706C13.0651 5.6433 12.6362 5.27328 12.1631 4.96466C11.1175 4.28263 9.85569 3.90039 8.55794 3.90039C5.22128 3.90039 2.59961 6.47205 2.59961 9.74508C2.59961 10.908 2.87666 12.0124 3.35126 13.0631C4.82326 16.3247 8.19585 19.0771 11.0989 21.4464C11.9347 22.1285 12.7316 22.7788 13.4329 23.4004C14.1343 22.7788 14.9312 22.1285 15.767 21.4464C18.67 19.0772 22.0425 16.3248 23.5146 13.0632C23.9892 12.0125 24.2663 10.9081 24.2663 9.74508C24.2663 6.47205 21.6446 3.90039 18.3079 3.90039C17.0102 3.90039 15.7484 4.28263 14.7028 4.96466C14.2297 5.27328 13.8008 5.6433 13.4329 6.06706ZM13.4329 20.5511C13.7826 20.2613 14.1401 19.9691 14.497 19.6773C14.7993 19.4301 15.1012 19.1833 15.3976 18.9385C16.5844 17.9587 17.7461 16.9632 18.7748 15.92C20.0478 14.629 20.9939 13.3864 21.5448 12.1599C21.9081 11.3502 22.0996 10.5481 22.0996 9.74508C22.0996 7.70782 20.4875 6.06706 18.3079 6.06706C17.0205 6.06706 15.819 6.6236 15.0691 7.48743L13.4329 9.37213L11.7968 7.48743C11.0469 6.6236 9.84541 6.06706 8.55794 6.06706C6.37837 6.06706 4.76628 7.70782 4.76628 9.74508C4.76628 10.5481 4.95774 11.3502 5.32109 12.1599C5.87203 13.3864 6.81814 14.629 8.09113 15.92C9.1198 16.9632 10.2815 17.9587 11.4682 18.9385C11.7647 19.1833 12.0666 19.4301 12.3689 19.6773C12.7258 19.9691 13.0833 20.2613 13.4329 20.5511Z" fill="inherit" />
+                  </svg>
+                  </button>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="swiper-button swiper-button-prev">
+            <svg width="45" height="88" viewBox="0 0 45 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_216_231" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="45" height="88">
+                <rect width="45" height="88" fill="#D9D9D9" />
+              </mask>
+              <g mask="url(#mask0_216_231)">
+                <path d="M3.8147e-06 88C11.6695 88 22.8611 83.3643 31.1127 75.1127C39.3643 66.8611 44 55.6695 44 44C44 32.3305 39.3643 21.1389 31.1127 12.8873C22.8611 4.6357 11.6695 -1.39158e-07 0 0V44L3.8147e-06 88Z" fill="white" fill-opacity="0.27" />
+                <path d="M11.2373 43.2627C11.2365 43.7223 11.3265 44.1775 11.5022 44.6022C11.6779 45.0268 11.9357 45.4126 12.261 45.7372L21.5255 55L24 52.5255L14.7373 43.2627L24 34L21.5255 31.5255L12.2628 40.7882C11.9372 41.1128 11.679 41.4985 11.503 41.9231C11.327 42.3478 11.2367 42.8031 11.2373 43.2627Z" fill="#1A1A1A" fill-opacity="0.93" />
+              </g>
+            </svg>
+          </div>
+          <div class="swiper-button swiper-button-next">
+            <svg width="45" height="88" viewBox="0 0 45 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="mask0_216_232" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="45" height="88">
+                <rect width="45" height="88" transform="matrix(-1 0 0 1 45 0)" fill="#D9D9D9" />
+              </mask>
+              <g mask="url(#mask0_216_232)">
+                <path d="M45 88C33.3305 88 22.1389 83.3643 13.8873 75.1127C5.6357 66.8611 1 55.6695 1 44C1 32.3305 5.6357 21.1389 13.8873 12.8873C22.1389 4.6357 33.3305 -1.39158e-07 45 0V44L45 88Z" fill="white" fill-opacity="0.27" />
+                <path d="M33.7627 43.2627C33.7635 43.7223 33.6735 44.1775 33.4978 44.6022C33.3221 45.0268 33.0643 45.4126 32.739 45.7372L23.4745 55L21 52.5255L30.2627 43.2627L21 34L23.4745 31.5255L32.7372 40.7882C33.0628 41.1128 33.321 41.4985 33.497 41.9231C33.673 42.3478 33.7633 42.8031 33.7627 43.2627Z" fill="#1A1A1A" fill-opacity="0.93" />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+<table class="table">
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ text_info }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <span class="help"><i class="fa fa-info-circle"></i>&nbsp;{{ clickatell_help_keys }}</span>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ clickatell_api_key }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group" name="api_input">
+                    <input type="text" class="form-control" name="PintaSmsSender[Clickatell][APIKey]" value="{{ data.PintaSmsSender.Clickatell.APIKey ? data.PintaSmsSender.Clickatell.APIKey : "" }}" />
+                </div>
+            </div>
+        </td>
+    </tr>
+
+</table>

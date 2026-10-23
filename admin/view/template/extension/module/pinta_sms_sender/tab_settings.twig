@@ -1,0 +1,134 @@
+<table class="table">
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ settings_sms_unicode }}</strong></h5>
+            <span class="help"><i class="fa fa-info-circle"></i>&nbsp;{{ settings_help_sms_unicode }}</span>
+        </td>
+        <td class="col-xs-9">
+            <div style="padding-left: 15px">
+                <input type="checkbox" id="smsUnicode" {{ data.PintaSmsSender.SmsUnicode == 'true' ? 'checked=checked' : '' }}" />
+                <input type="hidden" name="PintaSmsSender[SmsUnicode]" value="{{ data.PintaSmsSender.SmsUnicode == 'true' ? 'true' : 'false' }}" />
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ settings_admins_phones }}</strong></h5>
+            <span class="help"><i class="fa fa-info-circle"></i>&nbsp;{{ settings_help_admins_phones }}</span>
+        </td>
+        <td class="col-xs-9" id="storeOwnerInputs">
+            <div class="col-xs-6">
+                <div class="prefix">
+                    <select name="select_number_prefix" class="form-control">
+                        {% for country in countries %}
+                            <option data-country-code="{{ country.d_code|lower }}"
+                                    value="{{ country.code|lower }}" {{ (country.code is not empty and  country.code == 'UA') ? 'selected=selected' : '' }}> {{ country.name }} </option>
+                        {% endfor %}
+                    </select>
+                    <input type="hidden" class="form-control" name="PintaSmsSender[NumberPrefix]"
+                           value="{{ data.PintaSmsSender.NumberPrefix ? data.PintaSmsSender.NumberPrefix : "" }}"/>
+                    <input type="hidden" class="form-control" name="PintaSmsSender[CountryCode]"
+                           value="{{ data.PintaSmsSender.CountryCode ? data.PintaSmsSender.CountryCode : "" }}"/>
+                </div>
+                <div class="col-xs-3 clearPadding">
+                    <input type="text" class="form-control" id="input-store_owner_country_code" disabled="enabled"
+                           value=" {{ data.PintaSmsSender.NumberPrefix ? data.PintaSmsSender.NumberPrefix : "" }}"/>
+                </div>
+                <div class="col-xs-9 clearPadding number">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="input-store_owner_phone" value=""/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" id="addStoreOwner">{{ button_add }}</button>
+                        </span>
+                    </div>
+                </div>
+                <div id="storeOwnerTelephone" class="scrollbox form-control">
+                    {% if data.PintaSmsSender.StoreOwnerPhoneNumber is not empty %}
+                        {% set i = 0 %}
+                        {% for store_owner_number in data.PintaSmsSender.StoreOwnerPhoneNumber %}
+                            <div id="storeOwnerTelephone{{ i }}"><i class="fa fa-minus-circle"></i>&nbsp;{{ store_owner_number }}
+                                <input type="hidden" name="PintaSmsSender[StoreOwnerPhoneNumber][]" value="{{ store_owner_number }}"/>
+                            </div>
+                            {% set i = i + 1 %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+
+    function formatStatePrefix(state) {
+        if (!state.id) {
+            return state.text;
+        }
+
+        return $(
+            '<span><img src="view/image/pinta_sms_sender/country_flags/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span><span style="float:right;" class="dial_code">(' + state.element.getAttribute('data-country-code').toLowerCase() + ')</span>'
+        );
+    }
+
+    $(function () {
+        $("select[name='select_number_prefix']").select2({
+            templateResult: formatStatePrefix,
+            templateSelection: formatStatePrefix
+        });
+
+        $("select[name='select_number_prefix']").on("select2:select", function (e) {
+            $('input[name="PintaSmsSender[NumberPrefix]"]').val(e.params.data.element.getAttribute('data-country-code'));
+            $('input[name="PintaSmsSender[CountryCode]"]').val(e.params.data.element.value);
+        });
+
+        let selected_country = "{{ selected_country }}";
+        $("select[name='select_number_prefix']").select2('val', selected_country);
+
+
+        $('#input-store_owner_country_code').val(
+            $("select[name='select_number_prefix'] option:selected").attr('data-country-code')
+        );
+        $('input[name="PintaSmsSender[NumberPrefix]"]').val('+380');
+        $('input[name="PintaSmsSender[CountryCode]"]').val('ua');
+
+        $('#smsUnicode').change(function () {
+            $('input[name="PintaSmsSender[SmsUnicode]"]').val($(this).is(':checked'));
+        });
+    });
+
+    let owner_number = {{ data.PintaSmsSender.StoreOwnerPhoneNumber ? data.PintaSmsSender.StoreOwnerPhoneNumber|length : 0 }};
+
+    $("#addStoreOwner").click(function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if ($('input[id="input-store_owner_country_code"]').val() && $('input[id="input-store_owner_phone"]').val()) {
+            let full_phone_number = $('input[id="input-store_owner_country_code"]').val() + $('input[id="input-store_owner_phone"]').val();
+
+            $('#storeOwnerTelephone').append('<div id="storeOwnerTelephone' + owner_number + '">' + '<i class="fa fa-minus-circle"></i>&nbsp;' + full_phone_number + '<input type="hidden" name="PintaSmsSender[StoreOwnerPhoneNumber][]" value="' + full_phone_number + '" /></div>');
+            owner_number++;
+            $('#storeOwnerTelephone div:odd').attr('class', 'odd');
+            $('#storeOwnerTelephone div:even').attr('class', 'even');
+
+            $('input[id="input-store_owner_phone"]').val('');
+        } else {
+            alert('Error: All fileds are required!');
+        }
+    });
+
+    $('#storeOwnerTelephone').delegate('.fa-minus-circle', 'click', function () {
+        $(this).parent().remove();
+
+        $('#storeOwnerTelephone div:odd').attr('class', 'odd');
+        $('#storeOwnerTelephone div:even').attr('class', 'even');
+    });
+
+    $('select[name="select_number_prefix"]').on('select2:select', function (e) {
+        $('#input-store_owner_country_code').val(e.params.data.element.getAttribute('data-country-code'));
+    });
+
+    $('#input-store_owner_phone').on('keyup',function(){
+        this.value = this.value.replace(/[^0-9\.]/g,'');
+    });
+
+</script>

@@ -1,0 +1,63 @@
+{{ header }}
+
+<nav class="breadcrumbs" aria-label="breadcrumb">
+  <div class="_container">
+    <ol class="breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="breadcrumb-item">
+          <a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</nav>
+
+<section class="checkout">
+  <div class="_container">
+    {% if errors %}
+      {% for error in errors %}
+        <div class="alert alert-warning">{{ error }}</div>
+      {% endfor %}
+    {% elseif empty %}
+      <div class="alert alert-info">{{ empty }}</div>
+    {% endif %}
+    <h1 class="checkout__title h2 section-title">Кошик</h1>
+    <div class="checkout__wrapper">
+      <div class="checkout-form">
+        {% if customer and not logged %}
+          {{ customer }}
+        {% endif %}
+        {% if shipping and shipping != constant('false') %}
+          {{ shipping }}
+        {% endif %}
+        {% if payment %}
+          {{ payment }}
+        {% endif %}
+        {% if comment and comment != constant('false') %}
+          {{ comment }}
+        {% endif %}
+      </div>
+
+      <div class="checkout-cart">
+        <div class="checkout-cart__wrapper">
+          <div class="checkout-cart-header">
+            <div class="checkout-cart-header__title">Список товарів</div>
+          </div>
+
+          {% if cart %}
+            {{ cart }}
+          {% endif %}
+
+          {% if total %}
+            {{ total }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="custom-confirm" style="display: none;"></div>
+</section>
+
+
+
+{{ footer }}

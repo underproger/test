@@ -1,0 +1,65 @@
+{{ header }}
+
+<nav class="breadcrumbs" aria-label="breadcrumb">
+  <div class="_container">
+    <ol class="breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="breadcrumb-item">
+          <a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</nav>
+
+<section id="account-wishlist" class="account">
+  <div class="_container">
+    <div class="account__wrapper">
+      <h1 class="account__title h2 section-title">Особистий кабінет</h1>
+      <div class="account-nav">
+        <a href="{{ edit }}" class="account-nav__item"><span>Особисті данні</span></a>
+        <a href="{{ order }}" class="account-nav__item"><span>Історія замовлень</span></a>
+        <a href="{{ wishlist }}" class="account-nav__item _active"><span>Обрані товари</span></a>
+        <a href="{{ address }}" class="account-nav__item"><span>Адреса отримання</span></a>
+        <a href="{{ logout }}" class="account-nav__item"><span>Вийти</span></a>
+        {# <a href="#" class="account-nav__item"><span>Платіжні данні</span></a> #}
+      </div>
+
+      <div class="account-main">
+        <div class="account-main__title">Обрані товари</div>
+        <div class="account-list">
+          {% if products %}
+            {% for product in products %}
+              <div class="account-item">
+                <div class="account-item-main wishlist">
+                  <a href="{{ product.href }}" class="account-item__image"><img src="{{ product.thumb }}" alt="" /></a>
+                  <a href="{{ product.href }}" class="account-item__title">{{ product.name }}</a>
+                  <div class="account-item__number">{{ product.model }}</div>
+                  <div class="account-item__date">28.07.2024</div>
+                  <div class="account-item__status _grey">{{ product.stock }}</div>
+                  <div class="account-item__price">
+                    {% if product.price %}
+                      {% if not product.special %}
+                        {{ product.price }}
+                      {% else %}
+                        {{ product.special }} <s>{{ product.price }}</s>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                  <div class="account-item__toggle">
+                    <a href="{{ product.href }}" title="{{ button_cart }}" class="btn btn-dark"><i class="fa fa-shopping-cart"></i></a>
+                    <a href="{{ product.remove }}" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"><i class="fa fa-times"></i></a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p>{{ text_empty }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ footer }}

@@ -1,0 +1,115 @@
+{{ header }}
+<nav class="breadcrumbs" aria-label="breadcrumb">
+  <div class="_container">
+    <ol class="breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="breadcrumb-item">
+          <a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</nav>
+
+<section class="account">
+  <div class="_container">
+    <div class="account__wrapper">
+      <h1 class="account__title h2 section-title">Особистий кабінет</h1>
+      <div class="account-nav">
+        <a href="{{ edit }}" class="account-nav__item"><span>Особисті данні</span></a>
+        <a href="{{ order }}" class="account-nav__item _active"><span>Історія замовлень</span></a>
+        <a href="{{ wishlist }}" class="account-nav__item"><span>Обрані товари</span></a>
+        <a href="{{ address }}" class="account-nav__item"><span>Адреса отримання</span></a>
+        <a href="{{ logout }}" class="account-nav__item"><span>Вийти</span></a>
+        {# <a href="#" class="account-nav__item"><span>Платіжні данні</span></a> #}
+      </div>
+
+      <div class="account-main">
+        <div class="account-main__title">Історія замовлень</div>
+
+        <div class="account-list">
+          {% if orders %}
+            {% for order in orders %}
+              <div class="account-item">
+                <div class="account-item-main">
+                  <div class="account-item__number">№ {{ order.order_id }}</div>
+                  <div class="account-item__date">{{ order.date_added }}</div>
+                  <div class="account-item__status _grey">{{ order.status }}</div>
+                  <div class="account-item__price">{{ order.total }}</div>
+                  <div class="account-item__toggle">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 6.6C7.5222 6.6 6.3 7.8231 6.3 9.3C6.3 10.7778 7.5222 12 9 12C10.4769 12 11.7 10.7778 11.7 9.3C11.7 7.8231 10.4769 6.6 9 6.6Z" fill="#797979" />
+                      <path d="M9 3C2.1672 3 0.113686 8.9553 0.0948877 9.0156L0 9.3L0.0939926 9.5844C0.113686 9.6447 2.1672 15.6 9 15.6C15.8328 15.6 17.8863 9.6447 17.9051 9.5844L18 9.3L17.906 9.0156C17.8863 8.9553 15.8328 3 9 3ZM9 13.8C4.20997 13.8 2.35429 10.3386 1.90491 9.3C2.35608 8.2578 4.21265 4.8 9 4.8C13.79 4.8 15.6457 8.2614 16.0951 9.3C15.6439 10.3422 13.7873 13.8 9 13.8Z" fill="#797979" />
+                    </svg>
+
+                    <span>Детальніше</span>
+                    <span>Згорнути</span>
+                  </div>
+                </div>
+
+                <div class="account-item-details">
+                  <div class="account-item-details__list">
+                    {% for product in order.products_list %}
+                      <a href="{{ product.href }}" class="account-item-details-item">
+                        <img src="{{ product.image }}" alt="{{ product.name }}" />
+                        <div class="account-item-details-item__title">{{ product.name }}</div>
+                      </a>
+                    {% endfor %}
+                  </div>
+                  <div class="account-item-details__grid">
+                    <div class="account-item-details__col">
+                      <div class="account-item-details__row">
+                        Номер замовлення: <strong>{{ order.order_id }}</strong>
+                      </div>
+                      <div class="account-item-details__row">
+                        Дата замовлення: <strong>{{ order.date_added }}</strong>
+                      </div>
+                      <div class="account-item-details__row">
+                        Метод оплати: <strong>{{ order.payment_method }}</strong>
+                      </div>
+                      <div class="account-item-details__row">
+                        Доставка: <strong>{{ order.shipping_method }}</strong>
+                      </div>
+                    </div>
+                    <div class="account-item-details__col">
+                      <div class="account-item-details__row">
+                        ПІБ: <strong>{{ order.name }}</strong>
+                      </div>
+                      <div class="account-item-details__row">
+                        Телефон: <strong>{{ order.telephone }}</strong>
+                      </div>
+                      <div class="account-item-details__row">
+                        Місто: <strong>{{ order.shipping_city }}</strong>
+                      </div>
+                      <div class="account-item-details__row">
+                        Доставка: <strong>{{ order.shipping_address_1 }}</strong>
+                      </div>
+                    </div>
+                    <div class="account-item-details__col">
+                      <div class="account-item-details__row">
+                        ПІБ: <strong>{{ order.name }}</strong>
+                      </div>
+                      <div class="account-item-details__row">
+                        Телефон: <strong>{{ order.telephone }}</strong>
+                      </div>
+                      <div class="account-item-details__row">
+                        Місто: <strong>{{ order.shipping_city }}</strong>
+                      </div>
+                      <div class="account-item-details__row">
+                        Доставка: <strong>{{ order.shipping_address_1 }}</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p>{{ text_empty }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ footer }}

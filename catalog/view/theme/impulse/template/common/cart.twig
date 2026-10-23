@@ -1,0 +1,72 @@
+<div class="mcart">
+  <div class="mcart__bg"></div>
+  <div class="mcart__wrapper">
+    <div class="mcart__content">
+      <div class="mcart-header">
+        <div class="mcart-header__title">В кошику ({{ text_items }}) товари</div>
+        <svg class="mcart-header__close _mcart-close" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.9998 5.99982C17.8123 5.81235 17.558 5.70703 17.2928 5.70703C17.0277 5.70703 16.7733 5.81235 16.5858 5.99982L11.9998 10.5858L7.41382 5.99982C7.22629 5.81235 6.97198 5.70703 6.70682 5.70703C6.44165 5.70703 6.18735 5.81235 5.99982 5.99982C5.81235 6.18735 5.70703 6.44165 5.70703 6.70682C5.70703 6.97198 5.81235 7.22629 5.99982 7.41382L10.5858 11.9998L5.99982 16.5858C5.81235 16.7733 5.70703 17.0277 5.70703 17.2928C5.70703 17.558 5.81235 17.8123 5.99982 17.9998C6.18735 18.1873 6.44165 18.2926 6.70682 18.2926C6.97198 18.2926 7.22629 18.1873 7.41382 17.9998L11.9998 13.4138L16.5858 17.9998C16.7733 18.1873 17.0277 18.2926 17.2928 18.2926C17.558 18.2926 17.8123 18.1873 17.9998 17.9998C18.1873 17.8123 18.2926 17.558 18.2926 17.2928C18.2926 17.0277 18.1873 16.7733 17.9998 16.5858L13.4138 11.9998L17.9998 7.41382C18.1873 7.22629 18.2926 6.97198 18.2926 6.70682C18.2926 6.44165 18.1873 6.18735 17.9998 5.99982Z" fill="#1A1A1A" />
+        </svg>
+      </div>
+
+      <div class="mcart-body">
+        {% if products or vouchers %}
+          {% for product in products %}
+            <div class="mcart-item">
+              {% if product.thumb %}
+                <div class="mcart-item-image">
+                  <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="" />
+                </div>
+              {% endif %}
+
+              <div class="mcart-item-info">
+                <div class="mcart-item__title">{{ product.name }}</div>
+                <div class="mcart-item__article">
+                  <span>Артикул:</span> {{ product.model }}
+                </div>
+
+                {% for option in product.option %}
+                  <div class="mcart-item__size">
+                    <span>{{ option.name }}:</span> {{ option.value }}
+                  </div>
+                {% endfor %}
+
+                <div class="mcart-item__price">
+  {% if product.set_discount %}
+    <span class="old">{{ product.old_price }}</span>
+  {% endif %}
+  <span class="current">{{ product.total }}</span>
+</div>
+{% if product.set_discount %}
+  <div class="mcart-item__set-badge">-10% за комплект</div>
+{% endif %}
+              </div>
+
+              <svg onclick="cart.remove('{{ product.cart_id }}');" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.9998 4.99985C14.8436 4.84362 14.6317 4.75586 14.4107 4.75586C14.1897 4.75586 13.9778 4.84362 13.8215 4.99985L9.99985 8.82152L6.17818 4.99985C6.02191 4.84362 5.80998 4.75586 5.58901 4.75586C5.36804 4.75586 5.15612 4.84362 4.99985 4.99985C4.84362 5.15612 4.75586 5.36804 4.75586 5.58901C4.75586 5.80998 4.84362 6.02191 4.99985 6.17818L8.82152 9.99985L4.99985 13.8215C4.84362 13.9778 4.75586 14.1897 4.75586 14.4107C4.75586 14.6317 4.84362 14.8436 4.99985 14.9998C5.15612 15.1561 5.36804 15.2438 5.58901 15.2438C5.80998 15.2438 6.02191 15.1561 6.17818 14.9998L9.99985 11.1782L13.8215 14.9998C13.9778 15.1561 14.1897 15.2438 14.4107 15.2438C14.6317 15.2438 14.8436 15.1561 14.9998 14.9998C15.1561 14.8436 15.2438 14.6317 15.2438 14.4107C15.2438 14.1897 15.1561 13.9778 14.9998 13.8215L11.1782 9.99985L14.9998 6.17818C15.1561 6.02191 15.2438 5.80998 15.2438 5.58901C15.2438 5.36804 15.1561 5.15612 14.9998 4.99985Z" fill="#151515" fill-opacity="0.67" />
+              </svg>
+            </div>
+          {% endfor %}
+        {% else %}
+          <li>
+            <p>{{ text_empty }}</p>
+          </li>
+        {% endif %}
+      </div>
+
+      <div class="mcart-footer">
+        {% for total in totals %}
+          <div class="mcart-footer-total">
+            <div class="mcart-footer-total__label">{{ total.title }}</div>
+            <div class="mcart-footer-total__price">{{ total.text }}</div>
+          </div>
+        {% endfor %}
+
+        <div class="mcart-footer-buttons">
+          <div class="mcart-footer-buttons__cart _mcart-close">Повернутися</div>
+          <a class="mcart-footer-buttons__checkout" href="{{ checkout }}">Оформити замовлення</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

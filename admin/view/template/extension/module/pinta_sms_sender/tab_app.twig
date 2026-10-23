@@ -1,0 +1,36 @@
+<table class="table">
+    <tr>
+        <td class="col-xs-3"><h5><strong>{{ general_status }}</strong></h5></td>
+        <td class="col-xs-9">
+            <div class="col-xs-4">
+                <select name="PintaSmsSender[Enabled]" id="module_status" class="form-control">
+                      <option value="yes" {{ (data.PintaSmsSender.Enabled is not empty and data.PintaSmsSender.Enabled == 'yes') ? 'selected=selected' : '' }}>{{ text_enabled }}</option>
+                      <option value="no" {{ (data.PintaSmsSender.Enabled is empty or data.PintaSmsSender.Enabled == 'no') ? 'selected=selected' : '' }}>{{ text_disabled }}</option>
+                </select>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3"><h5><strong>{{ general_api }}</strong></h5></td>
+        <td class="col-xs-9">
+            <div class="col-xs-4">
+                <select name="PintaSmsSender[Api][Id]" id="general_api" class="form-control">
+                    {% for api in api_list %}
+                        <option value="{{ api.Id }}" data-class_name="{{ api.ClassName }}" {{ (api_list|length == 1 or ((api_list|first).Id == api.Id and data.PintaSmsSender.Api is empty) or (data.PintaSmsSender.Api is not empty and data.PintaSmsSender.Api.Id == api.Id)) ? 'selected=selected' : '' }}>{{ api.Name }}</option>
+                    {% endfor %}
+                </select>
+                <input type="hidden" class="form-control" name="PintaSmsSender[Api][Name]" />
+                <input type="hidden" class="form-control" name="PintaSmsSender[Api][ClassName]" />
+            </div>
+        </td>
+    </tr>
+</table>
+
+<script>
+    $(function () {
+        $(document).delegate('#general_api', 'change', function (event) {
+            $(this).find(`option[selected=selected]`).removeAttr('selected');
+            $(this).find(`option[value=${$(this).val()}]`).attr('selected', 'true');
+        })
+    });
+</script>

@@ -1,0 +1,94 @@
+{{ header }}
+
+<nav class="breadcrumbs" aria-label="breadcrumb">
+  <div class="_container">
+    <ol class="breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="breadcrumb-item">
+          <a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</nav>
+
+<section id="product-category" class="catalog">
+  <div class="_container">
+    <div id="content" class="catalog__wrapper">
+      <h1 class="catalog__title h2 section-title">{{ heading_title }}</h1>
+
+      {% if banner_image %}
+        <div class="catalog-banner">
+          <div class="catalog-banner-image">
+            <img src="{{ banner_image }}" alt="{{ heading_title }}" />
+          </div>
+          <div class="catalog-banner-info" style="--mob-color: {{banner_description_color}};">
+            {# <div class="catalog-banner__title">{{ heading_title }}</div> #}
+            <div class="catalog-banner__text">{{ banner_description }}</div>
+
+            {% if brand_url %}
+            <a href="{{brand_url}}" class="catalog-banner__more">
+                <span>Детальніше</span>
+                <svg width="16" height="8" viewBox="0 0 16 8" fill="#6C6C6C" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.7633 6.67504L12.5715 7.5L16 4L12.5714 0.5L11.7633 1.32496L13.8124 3.41672L0 3.41672V4.58339L13.8123 4.58339L11.7633 6.67504Z" fill="inherit"></path>
+                </svg>
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="catalog__main">
+        {% if products %}
+        <div class="catalog-sidebar">
+          <div class="catalog-filters accordion border-0" id="filters">
+            <div class="catalog-filters-close">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.9998 5.99982C17.8123 5.81235 17.558 5.70703 17.2928 5.70703C17.0277 5.70703 16.7733 5.81235 16.5858 5.99982L11.9998 10.5858L7.41382 5.99982C7.22629 5.81235 6.97198 5.70703 6.70682 5.70703C6.44165 5.70703 6.18735 5.81235 5.99982 5.99982C5.81235 6.18735 5.70703 6.44165 5.70703 6.70682C5.70703 6.97198 5.81235 7.22629 5.99982 7.41382L10.5858 11.9998L5.99982 16.5858C5.81235 16.7733 5.70703 17.0277 5.70703 17.2928C5.70703 17.558 5.81235 17.8123 5.99982 17.9998C6.18735 18.1873 6.44165 18.2926 6.70682 18.2926C6.97198 18.2926 7.22629 18.1873 7.41382 17.9998L11.9998 13.4138L16.5858 17.9998C16.7733 18.1873 17.0277 18.2926 17.2928 18.2926C17.558 18.2926 17.8123 18.1873 17.9998 17.9998C18.1873 17.8123 18.2926 17.558 18.2926 17.2928C18.2926 17.0277 18.1873 16.7733 17.9998 16.5858L13.4138 11.9998L17.9998 7.41382C18.1873 7.22629 18.2926 6.97198 18.2926 6.70682C18.2926 6.44165 18.1873 6.18735 17.9998 5.99982Z" fill="#1A1A1A" />
+              </svg>
+            </div>
+
+            {{ column_left }}
+          </div>
+        </div>
+        <div class="catalog-list">
+        <div class="catalog-list__header">
+            <div class="catalog-filters-open">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.66658 3.33333H14.6666V4.66667H8.66658V3.33333ZM1.33325 4.66667H5.99992V6H7.33325V2H5.99992V3.33333H1.33325V4.66667ZM5.99992 11.3333H14.6666V12.6667H5.99992V11.3333ZM12.6666 7.33333H14.6666V8.66667H12.6666V7.33333ZM11.3333 10V6.008H9.99992V7.33333H1.33325V8.66667H9.99992V10H11.3333ZM4.66658 14V10H3.33325V11.3333H1.33325V12.6667H3.33325V14H4.66658Z" fill="#212121"></path>
+              </svg>
+              <span>Фільтри</span>
+            </div>
+            <select id="input-view">
+                <option value="_product" selected="selected">Показати виріб</option>
+                <option value="_model">Показати модель</option>
+            </select>
+            <select id="input-sort" class="" onchange="location = this.value;">
+              {% for sorts in sorts %}
+                {% if sorts.value == ('%s-%s'|format(sort, order)) %}
+                  <option value="{{ sorts.href }}" selected="selected">{{ sorts.text }}</option>
+                {% else %}
+                  <option value="{{ sorts.href }}">{{ sorts.text }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+          <div class="catalog-list__wrapper">
+              {% for product in products %}
+              {{ include("impulse/template/product/product_card.twig") }}
+              {% endfor %}
+           
+
+          </div>
+
+          <nav class="catalog-pagination">{{ pagination }}</nav>
+        </div>
+        {% else %}
+          <p>{{ text_empty }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{{ content_bottom }}
+{{ footer }}

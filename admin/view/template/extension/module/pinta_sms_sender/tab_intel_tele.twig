@@ -1,0 +1,55 @@
+<table class="table">
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ text_info }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <span class="help"><i class="fa fa-info-circle"></i>&nbsp;{{ intel_tele_help_api }}</span>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ intel_tele_username }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="PintaSmsSender[IntelTele][Username]" value="{{ data.PintaSmsSender.IntelTele.Username ? data.PintaSmsSender.IntelTele.Username : "" }}" />
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ intel_tele_api_key }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="PintaSmsSender[IntelTele][APIKey]" value="{{ data.PintaSmsSender.IntelTele.APIKey ? data.PintaSmsSender.IntelTele.APIKey : "" }}" />
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ intel_tele_sender }}</strong></h5>
+            <span class="help"><i class="fa fa-info-circle"></i>&nbsp;{{ intel_tele_help_sender }}</span>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group" name="phone_input">
+                    <input type="text" class="form-control" name="PintaSmsSender[IntelTele][Sender]" maxlength="15" value="{{ data.PintaSmsSender.IntelTele.Sender ? data.PintaSmsSender.IntelTele.Sender : "" }}" />
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>

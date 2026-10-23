@@ -1,0 +1,17 @@
+<section class="brands module-brands">
+  <div class="_container">
+    <div class="brands__wrapper">
+      <div class="brands__top">
+        <h1 class="brands__title h2 section-title">{{ heading_title }}</h1>
+
+        <a href="{{brands_link}}" class="brands__link _desk">Перейти</a>
+      </div>
+
+      <div class="brands-list">
+        {% for manufacturer in manufacturers %}
+          <a href="{{ manufacturer.href }}" class="brands-item"><img src="{{ manufacturer.image }}" alt="{{ manufacturer.name }}" /></a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

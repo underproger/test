@@ -1,0 +1,221 @@
+{{ header }}
+
+<nav class="breadcrumbs" aria-label="breadcrumb">
+  <div class="_container">
+    <ol class="breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="breadcrumb-item">
+          <a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</nav>
+
+{% if is_brand %}
+
+<section class="pbrand">
+  <div class="_container">
+    <div class="pbrand__wrapper">
+      <h1 class="pbrand__title h2 section-title">{{ block_1_title }}</h1>
+
+      {% if block_1_image %}
+        <div class="pbrand-banner">
+          <div class="pbrand-banner-image">
+            <img src="/image/{{ block_1_image }}" alt="{{ block_1_title }}" />
+          </div>
+          <div class="pbrand-banner-info" style="--mob-color: {{block_1_text_color}};">
+            <div class="pbrand-banner__text">{{ block_1_text }}</div>
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="pbrand__text _hidden">
+        <div class="_typography">
+          {{ block_2_text_1 }}
+        </div>
+
+       <span class="pbrand__text-btn" data-text="Сховати">Детальніше</span>
+      </div>
+
+      <div class="pbrand__text _typography">
+        {{ block_2_text_2 }}
+
+        <div class="pbrand__images col_2">
+          <a href="/image/{{block_2_image_1}}" data-fancybox="gallery">
+            <img src="/image/{{block_2_image_1}}" alt="" />
+          </a>
+          <a href="/image/{{block_2_image_2}}" data-fancybox="gallery">
+            <img src="/image/{{block_2_image_2}}" alt="" />
+          </a>
+        </div>
+
+        {{ block_2_text_3 }}
+      </div>
+
+      <div class="pbrand__quote">
+        <div class="pbrand__quote-text">
+          {{ brand_quote }}
+        </div>
+        <div class="pbrand__quote-author">
+          {{brand_quote_author}}
+        </div>
+      </div>
+
+      <div class="pbrand__text _typography">
+       {{ block_3_text_1 }}
+
+      {% if brand_images %}
+        <div class="pbrand__slider">
+          <div class="swiper swiper-3-card">
+            <div class="swiper-wrapper">
+              {% for image in brand_images %}
+              <div class="swiper-slide pbrand__slider-slide">
+                <a href="/image/{{image.image}}" data-fancybox="gallery-2">
+                  <img src="/image/{{image.image}}" alt="" />
+                </a>
+              </div>
+              {% endfor %}
+            </div>
+
+             <div class="swiper-button swiper-button-prev">
+              <svg width="45" height="88" viewBox="0 0 45 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <mask id="mask0_216_231" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="45" height="88">
+                  <rect width="45" height="88" fill="#D9D9D9" />
+                </mask>
+                <g mask="url(#mask0_216_231)">
+                  <path d="M3.8147e-06 88C11.6695 88 22.8611 83.3643 31.1127 75.1127C39.3643 66.8611 44 55.6695 44 44C44 32.3305 39.3643 21.1389 31.1127 12.8873C22.8611 4.6357 11.6695 -1.39158e-07 0 0V44L3.8147e-06 88Z" fill="white" fill-opacity="0.27" />
+                  <path d="M11.2373 43.2627C11.2365 43.7223 11.3265 44.1775 11.5022 44.6022C11.6779 45.0268 11.9357 45.4126 12.261 45.7372L21.5255 55L24 52.5255L14.7373 43.2627L24 34L21.5255 31.5255L12.2628 40.7882C11.9372 41.1128 11.679 41.4985 11.503 41.9231C11.327 42.3478 11.2367 42.8031 11.2373 43.2627Z" fill="#1A1A1A" fill-opacity="0.93" />
+                </g>
+              </svg>
+            </div>
+            <div class="swiper-button swiper-button-next">
+              <svg width="45" height="88" viewBox="0 0 45 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <mask id="mask0_216_232" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="45" height="88">
+                  <rect width="45" height="88" transform="matrix(-1 0 0 1 45 0)" fill="#D9D9D9" />
+                </mask>
+                <g mask="url(#mask0_216_232)">
+                  <path d="M45 88C33.3305 88 22.1389 83.3643 13.8873 75.1127C5.6357 66.8611 1 55.6695 1 44C1 32.3305 5.6357 21.1389 13.8873 12.8873C22.1389 4.6357 33.3305 -1.39158e-07 45 0V44L45 88Z" fill="white" fill-opacity="0.27" />
+                  <path d="M33.7627 43.2627C33.7635 43.7223 33.6735 44.1775 33.4978 44.6022C33.3221 45.0268 33.0643 45.4126 32.739 45.7372L23.4745 55L21 52.5255L30.2627 43.2627L21 34L23.4745 31.5255L32.7372 40.7882C33.0628 41.1128 33.321 41.4985 33.497 41.9231C33.673 42.3478 33.7633 42.8031 33.7627 43.2627Z" fill="#1A1A1A" fill-opacity="0.93" />
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+       {{ block_3_text_2 }}
+      </div>
+
+
+      <div class="pbrand__text _typography">
+        {{ block_4_text_1 }}
+
+        <div class="pbrand__images">
+          <a href="/image/{{block_4_image}}" data-fancybox="gallery-3">
+            <img src="/image/{{block_4_image}}" alt="" />
+          </a>
+        </div>
+
+        {{ block_4_text_2 }}
+      </div>
+
+      <a class="pbrand__button" href="{{brand_url}}">Каталог бренду</a>
+    </div>
+  </div>
+</section>
+
+{% elseif id == 4 %}
+  <section class="about">
+    <div class="_container">
+      <div class="about__wrapper">
+        <h1 class="about__title h2 section-title">{{ heading_title }}</h1>
+        <div class="about-main">
+          <div class="about-image">
+            <img src="/image/{{ image }}" alt="about" />
+          </div>
+
+          <div class="about-text">{{ description }}</div>
+          <div class="about-text">{{ description2 }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% elseif id == 22 %}
+  <section class="sales">
+    <div class="_container">
+      <div class="sales__wrapper">
+        <h2 class="sales__title h2 section-title">{{ heading_title }}</h2>
+
+        <div class="sales__list">
+          {% for sale in sales %}
+              {% if sale.sort_order != 0 %}
+              <div class="sales-item">
+                {% if sale.label %}
+                <span class="sales-item-label">{{sale.label}}</span>
+                {% endif %}
+                <a href="{{sale.link}}" class="sales-item-image">
+                  <div class="sales-item-image__wrapper">
+                    <img src="/image/{{sale.image}}" alt="{{sale.title}}" />
+                  </div>
+                </a>
+                {% if sale.title %}
+                <a href="{{sale.link}}" class="sales-item__title">{{sale.title}}</a>
+                {% endif %}
+                {% if sale.text %}
+                <p class="sales-item__descr">{{sale.text}}</p>
+                {% endif %}
+              </div>
+              {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+  {{ content_bottom }}
+{% else %}
+  <section class="info">
+    <div class="_container">
+      <div class="info__wrapper">
+        <h1 class="info__title h2 section-title">Інформація</h1>
+        <div class="info-nav">
+          {% for information in informations %}
+            {% if information.id != 4 and information.id != 22 %}
+              <a href="{{ information.href }}" class="info-nav__item {{ information.id == id ? '_active' }}"><span>{{ information.title }}</span></a>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="info-main">
+          <div class="info-main__title">{{ heading_title }}</div>
+          <div class="info-main__text _typography">{{ description }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{ content_bottom }}
+{% endif %}
+
+<script>
+const hiddenText = document.querySelectorAll('.pbrand__text._hidden');
+if ( hiddenText.length ) {
+  hiddenText.forEach((text)=>{
+    const btn = text.querySelector('.pbrand__text-btn');
+
+    if ( btn ) {
+      btn.addEventListener('click', () => {
+        text.classList.toggle('_hidden');
+
+        const btnText = btn.innerHTML;
+        const btnText2 = btn.dataset.text;
+
+        btn.dataset.text = btnText;
+        btn.innerHTML = btnText2;
+      })
+    }
+  })
+}
+</script>
+
+{{ footer }}

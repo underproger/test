@@ -1,0 +1,43 @@
+{{ header }}
+
+<nav class="breadcrumbs" aria-label="breadcrumb">
+  <div class="_container">
+    <ol class="breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="breadcrumb-item">
+          <a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</nav>
+
+{{ content_top}}
+
+<section class="brands">
+  <div class="_container">
+    <div class="brands__wrapper">
+      <h1 class="brands__title h2 section-title">Бренди</h1>
+
+      <div class="brands-list">
+        {% if categories %}
+          {% for category in categories %}
+            {% if category.manufacturer %}
+              {% for manufacturers in category.manufacturer|batch(4) %}
+                {% for manufacturer in manufacturers %}
+                  <a href="{{ manufacturer.href }}" class="brands-item">
+                    <img src="{{ manufacturer.thumb }}" alt="{{ manufacturer.name }}" />
+                  </a>
+                {% endfor %}
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ content_bottom }}
+
+{{ footer }}

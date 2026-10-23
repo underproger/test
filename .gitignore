@@ -20,9 +20,16 @@
 /test-natalize-storage/csvprice_pro/*
 !/test-natalize-storage/csvprice_pro/index.html
 
-# Кэш картинок
-/image/cache/*
-!/image/cache/index.html
+# Старый storage внутри system/ (не используется: DIR_STORAGE = test-natalize-storage)
+/system/storage/cache/*
+!/system/storage/cache/index.html
+/system/storage/logs/*
+!/system/storage/logs/index.html
+/system/storage/session/*
+!/system/storage/session/index.html
+
+# Картинки — контент, в архиве их не было, на хостинг копируются отдельно
+/image/
 
 .DS_Store
 Thumbs.db

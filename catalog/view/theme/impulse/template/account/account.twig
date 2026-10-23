@@ -1,0 +1,30 @@
+{{ header }}
+<nav class="breadcrumbs" aria-label="breadcrumb">
+  <div class="_container">
+    <ol class="breadcrumb">
+      {% for breadcrumb in breadcrumbs %}
+        <li class="breadcrumb-item">
+          <a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</nav>
+
+<section class="account">
+  <div class="_container">
+    <div class="account__wrapper">
+      <h1 class="account__title h2 section-title">Особистий кабінет</h1>
+      <div class="account-nav">
+        <a href="{{ edit }}" class="account-nav__item"><span>Особисті данні</span></a>
+        <a href="{{ order }}" class="account-nav__item"><span>Історія замовлень</span></a>
+        <a href="{{ wishlist }}" class="account-nav__item"><span>Обрані товари</span></a>
+        <a href="{{ address }}" class="account-nav__item"><span>Адреса отримання</span></a>
+        <a href="{{ logout }}" class="account-nav__item"><span>Вийти</span></a>
+        {# <a href="#" class="account-nav__item"><span>Платіжні данні</span></a> #}
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ footer }}

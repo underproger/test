@@ -1,0 +1,421 @@
+<div class="row">
+    <div class="col-md-3">
+        <ul class="nav nav-pills nav-stacked" id="preSaleTabs">
+            <h4 style="line-height: 22px;"><span class="fa fa-minus"></span>&nbsp; {{ send_sms_to_customers }}</h4>
+            <li><a href="#customerQuickOrder" data-toggle="tab"><span class="pillLink">{{ on_new_quick_order_placed }}</span></a></li>
+            <li><a href="#customerOrder" data-toggle="tab"><span class="pillLink">{{ on_new_order_placed }}</span></a></li>
+            <li><a href="#orderStatusChange" data-toggle="tab"><span class="pillLink">{{ on_order_status_change }}</span></a></li>
+            <li><a href="#customerRegister" data-toggle="tab"><span class="pillLink">{{ on_successful_signup }}</span></a></li>
+
+            <h4 style="line-height: 22px; padding-top: 10px;"><span class="fa fa-minus"></span>&nbsp; {{ send_sms_to_owner }}</h4>
+            <li><a href="#customerQuickOrderAdmin" data-toggle="tab"><span class="pillLink">{{ on_new_quick_order_placed }}</span></a></li>
+            <li><a href="#customerOrderAdmin" data-toggle="tab"><span class="pillLink">{{ on_new_order_placed }}</span></a></li>
+            <li><a href="#customerRegisterAdmin" data-toggle="tab"><span class="pillLink">{{ on_successful_signup }}</span></a></li>
+        </ul>
+    </div>
+    <div class="col-md-9">
+        <div class="tab-content">
+
+            <div id="customerQuickOrder" class="tab-pane fade">
+                {% if quick_order_exists %}
+                    <table class="table">
+                        <tr>
+                            <td class="col-xs-4"><h5>{{ text_status }}</h5></td>
+                            <td class="col-xs-8">
+                                <div class="col-xs-5">
+                                    <select name="PintaSmsSender[CustomerQuickOrder][Enabled]" class="form-control">
+                                        <option value="yes" {{ (data.PintaSmsSender.CustomerQuickOrder.Enabled is not empty and data.PintaSmsSender.CustomerQuickOrder.Enabled == 'yes') ? 'selected=selected' : '' }}>{{ text_enabled }}</option>
+                                        <option value="no" {{ (data.PintaSmsSender.CustomerQuickOrder.Enabled is empty or data.PintaSmsSender.CustomerQuickOrder.Enabled== 'no') ? 'selected=selected' : '' }}>{{ text_disabled }}</option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-xs-4"><h5>{{ order_message }}</h5>
+                                <span class="help">{{ help_c_m_on_new_quick_order_placed }}</span></td>
+                            <td class="col-xs-8">
+                                <div class="col-xs-12">
+                                    <ul class="nav nav-tabs">
+                                        {% set class = 'active' %}
+                                        {% for language in languages %}
+                                            <li class="{{ class }}"><a href="#tabQuickOrder-{{ language.language_id }}"
+                                                                       data-toggle="tab"><img
+                                                            src="{{ language.flag_url }}"/> {{ language.name }}</a></li>
+                                            {% set class = '' %}
+                                        {% endfor %}
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        {% set class = ' active' %}
+                                        {% for language in languages %}
+                                            <div id="tabQuickOrder-{{ language.language_id }}"
+                                                 language-id="{{ language.language_id }}"
+                                                 class="row-fluid tab-pane {{ class }} language">
+                                                <br/><textarea rows="3" id="text-customer-place-quick-order" class="form-control"
+                                                               name="PintaSmsSender[CustomerQuickOrderText][{{ language.language_id }}]">{{ (data.PintaSmsSender.CustomerQuickOrderText[language.language_id] is not empty) ? data.PintaSmsSender.CustomerQuickOrderText[language.language_id] : c_m_on_new_quick_order_placed }}</textarea>
+                                                <div style="margin-top:5px"><span>{{ order_characters }} <span
+                                                                id="text-customer-place-quick-order-characters">0</span></span><span
+                                                            style="padding-left:20px;">{{ order_sms_counter }} <span
+                                                                id="text-customer-place-quick-order-sms">1</span></span></div>
+                                            </div>
+                                            {% set class = '' %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                {% else %}
+                    <a class="buy-quick-order btn btn-large btn-primary"
+                       href="{{ buy_quick_order_link }}" target="_blank">{{ text_buy_quick_order }}</a>
+                {% endif %}
+            </div>
+
+            <div id="customerOrder" class="tab-pane fade">
+                <table class="table">
+                    <tr>
+                        <td class="col-xs-4"><h5>{{ text_status }}</h5></td>
+                        <td class="col-xs-8">
+                            <div class="col-xs-5">
+                                <select name="PintaSmsSender[CustomerPlaceOrder][Enabled]" class="form-control">
+                                    <option value="yes" {{ (data.PintaSmsSender.CustomerPlaceOrder.Enabled is not empty and data.PintaSmsSender.CustomerPlaceOrder.Enabled == 'yes') ? 'selected=selected' : '' }}>{{ text_enabled }}</option>
+                                    <option value="no" {{ (data.PintaSmsSender.CustomerPlaceOrder.Enabled is empty or data.PintaSmsSender.CustomerPlaceOrder.Enabled== 'no') ? 'selected=selected' : '' }}>{{ text_disabled }}</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-xs-4"><h5>{{ order_message }}</h5>
+                            <span class="help">{{ help_c_m_on_new_order_placed }}</span></td>
+                        <td class="col-xs-8">
+                            <div class="col-xs-12">
+                                <ul class="nav nav-tabs">
+                                    {% set class = 'active' %}
+                                    {% for language in languages %}
+                                        <li class="{{ class }}"><a href="#tabOrder-{{ language.language_id }}"
+                                                                   data-toggle="tab"><img
+                                                        src="{{ language.flag_url }}"/> {{ language.name }}</a></li>
+                                        {% set class = '' %}
+                                    {% endfor %}
+                                </ul>
+
+                                <div class="tab-content">
+                                    {% set class = ' active' %}
+                                    {% for language in languages %}
+                                        <div id="tabOrder-{{ language.language_id }}"
+                                             language-id="{{ language.language_id }}"
+                                             class="row-fluid tab-pane {{ class }} language">
+                                            <br/><textarea rows="3" id="text-customer-place-order" class="form-control"
+                                                           name="PintaSmsSender[CustomerPlaceOrderText][{{ language.language_id }}]">{{ (data.PintaSmsSender.CustomerPlaceOrderText[language.language_id] is not empty) ? data.PintaSmsSender.CustomerPlaceOrderText[language.language_id] : c_m_on_new_order_placed }}</textarea>
+                                            <div style="margin-top:5px"><span>{{ order_characters }} <span
+                                                            id="text-customer-place-order-characters">0</span></span><span
+                                                        style="padding-left:20px;">{{ order_sms_counter }} <span
+                                                            id="text-customer-place-order-sms">1</span></span></div>
+                                        </div>
+                                        {% set class = '' %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="orderStatusChange" class="tab-pane fade">
+                <table class="table">
+                    <tr>
+                        <td class="col-xs-4"><h5>{{ text_status }}</h5></td>
+                        <td class="col-xs-8">
+                            <div class="col-xs-5">
+                                <select name="PintaSmsSender[OrderStatusChange][Enabled]" class="form-control">
+                                    <option value="yes" {{ (data.PintaSmsSender.OrderStatusChange.Enabled is not empty and data.PintaSmsSender.OrderStatusChange.Enabled == 'yes') ? 'selected=selected' : '' }}>{{ text_enabled }}</option>
+                                    <option value="no" {{ (data.PintaSmsSender.OrderStatusChange.Enabled is empty or data.PintaSmsSender.OrderStatusChange.Enabled == 'no') ? 'selected=selected' : '' }}>{{ text_disabled }}</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-xs-4">
+                            <h5>{{ order_status }}</h5>
+                            <span class="help">{{ help_c_o_on_order_status_change }}</span>
+                        </td>
+                        <td class="col-xs-8">
+                            <div class="col-xs-5">
+                                {% for order_statuses in order_statuses %}
+                                    <div class="orderStatuses checkbox">
+                                        <label><input
+                                                    type="checkbox" {{ (data.PintaSmsSender.OrderStatusChange.OrderStatus and order_statuses.order_status_id in data.PintaSmsSender.OrderStatusChange.OrderStatus) ? "checked=checked" : '' }}
+                                                    name="PintaSmsSender[OrderStatusChange][OrderStatus][]"
+                                                    value="{{ order_statuses.order_status_id }}">{{ order_statuses.name }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                                <a id="selectall" href="#">Select All</a> | <a id="deselectall" href="#">Deselect
+                                    All</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-xs-4"><h5>{{ order_message }}</h5><span
+                                    class="help">{{ help_c_m_on_order_status_change }}</td>
+                        <td class="col-xs-8">
+                            <div class="col-xs-12">
+                                <ul class="nav nav-tabs">
+                                    {% set class = 'active' %}
+                                    {% for language in languages %}
+                                        <li class="{{ class }}"><a href="#tabOrderChange-{{ language.language_id }}"
+                                                                   data-toggle="tab"><img
+                                                        src="{{ language.flag_url }}"/> {{ language.name }}</a></li>
+                                        {% set class = '' %}
+                                    {% endfor %}
+                                </ul>
+
+                                <div class="tab-content">
+                                    {% set class = ' active' %}
+                                    {% for language in languages %}
+                                        <div id="tabOrderChange-{{ language.language_id }}"
+                                             language-id="{{ language.language_id }}"
+                                             class="row-fluid tab-pane {{ class }} language">
+                                            <br/><textarea rows="3" id="text-customer-order-status-change"
+                                                           class="form-control"
+                                                           name="PintaSmsSender[OrderStatusChangeText][{{ language.language_id }}]">{{ (data.PintaSmsSender.OrderStatusChangeText[language.language_id] is not empty) ? data.PintaSmsSender.OrderStatusChangeText[language.language_id] : c_m_on_order_status_change }}</textarea>
+                                            <div style="margin-top:5px"><span>{{ order_characters }} <span
+                                                            id="text-customer-order-status-change-characters">0</span></span><span
+                                                        style="padding-left:20px;">{{ order_sms_counter }} <span
+                                                            id="text-customer-order-status-change-sms">1</span></span>
+                                            </div>
+                                        </div>
+                                        {% set class = '' %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="customerRegister" class="tab-pane fade">
+                <table class="table">
+                    <tr>
+                        <td class="col-xs-4"><h5>{{ text_status }}</h5></td>
+                        <td class="col-xs-8">
+                            <div class="col-xs-5">
+                                <select name="PintaSmsSender[CustomerRegister][Enabled]" class="form-control">
+                                    <option value="yes" {{ (data.PintaSmsSender.CustomerRegister.Enabled is not empty) and (data.PintaSmsSender.CustomerRegister.Enabled == 'yes') ? 'selected=selected' : '' }}>{{ text_enabled }}</option>
+                                    <option value="no" {{ (data.PintaSmsSender.CustomerRegister.Enabled is empty or data.PintaSmsSender.CustomerRegister.Enabled == 'no') ? 'selected=selected' : '' }}>{{ text_disabled }}</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-xs-4"><h5>{{ order_message }}</h5><span
+                                    class="help">{{ help_c_m_on_successful_signup }}</span></td>
+                        <td class="col-xs-8">
+                            <div class="col-xs-12">
+                                <ul class="nav nav-tabs mainMenuTabs">
+                                    {% set class = 'active' %}
+                                    {% for language in languages %}
+                                        <li class="{{ class }}"><a href="#tabSignup-{{ language.language_id }}"
+                                                                   data-toggle="tab"><img
+                                                        src="{{ language.flag_url }}"/> {{ language.name }}</a></li>
+                                        {% set class = '' %}
+                                    {% endfor %}
+                                </ul>
+
+                                <div class="tab-content">
+                                    {% set class = ' active' %}
+                                    {% for language in languages %}
+                                        <div id="tabSignup-{{ language.language_id }}"
+                                             language-id="{{ language.language_id }}"
+                                             class="row-fluid tab-pane {{ class }} language">
+                                            <br/><textarea rows="3" id="text-customer-register" class="form-control"
+                                                           name="PintaSmsSender[CustomerRegisterText][{{ language.language_id }}]">{{ (data.PintaSmsSender.CustomerRegisterText[language.language_id] is not empty) ? data.PintaSmsSender.CustomerRegisterText[language.language_id] : c_m_on_successful_signup }}</textarea>
+                                            <div style="margin-top:5px"><span>{{ order_characters }} <span
+                                                            id="text-customer-register-characters">0</span></span><span
+                                                        style="padding-left:20px;">{{ order_sms_counter }} <span
+                                                            id="text-customer-register-sms">1</span></span></div>
+                                        </div>
+                                        {% set class = '' %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="customerQuickOrderAdmin" class="tab-pane fade">
+                {% if quick_order_exists %}
+                    <table class="table">
+                        <tr>
+                            <td class="col-xs-4"><h5>{{ text_status }}</h5></td>
+                            <td class="col-xs-8">
+                                <div class="col-xs-5">
+                                    <select name="PintaSmsSender[AdminQuickOrder][Enabled]" class="form-control">
+                                        <option value="yes" {{ (data.PintaSmsSender.AdminQuickOrder.Enabled is not empty and data.PintaSmsSender.AdminQuickOrder.Enabled == 'yes') ? 'selected=selected' : '' }}>{{ text_enabled }}</option>
+                                        <option value="no" {{ (data.PintaSmsSender.AdminQuickOrder.Enabled is empty or data.PintaSmsSender.AdminQuickOrder.Enabled == 'no') ? 'selected=selected' : '' }}>{{ text_disabled }}</option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-xs-4"><h5>{{ order_message }}</h5><span
+                                        class="help">{{ help_a_m_on_new_quick_order_placed }}</span></td>
+                            <td class="col-xs-8">
+                                <div class="col-xs-12">
+                                    <br/><textarea rows="3" id="text-admin-quick-order-placed" class="form-control"
+                                                   name="PintaSmsSender[AdminQuickOrderText]">{{ data.PintaSmsSender.AdminQuickOrderText is not empty ? data.PintaSmsSender.AdminQuickOrderText : a_m_on_new_quick_order_placed }}</textarea>
+                                    <div style="margin-top:5px"><span>{{ order_characters }} <span
+                                                    id="text-admin-quick-order-placed-characters">0</span></span><span
+                                                style="padding-left:20px;">{{ order_sms_counter }} <span
+                                                    id="text-admin-quick-order-placed-sms">1</span></span></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                {% else %}
+                    <a class="buy-quick-order btn btn-large btn-primary"
+                       href="{{ buy_quick_order_link }}" target="_blank">{{ text_buy_quick_order }}</a>
+                {% endif %}
+            </div>
+
+            <div id="customerOrderAdmin" class="tab-pane fade">
+                <table class="table">
+                    <tr>
+                        <td class="col-xs-4"><h5>{{ text_status }}</h5></td>
+                        <td class="col-xs-8">
+                            <div class="col-xs-5">
+                                <select name="PintaSmsSender[AdminPlaceOrder][Enabled]" class="form-control">
+                                    <option value="yes" {{ (data.PintaSmsSender.AdminPlaceOrder.Enabled is not empty and data.PintaSmsSender.AdminPlaceOrder.Enabled == 'yes') ? 'selected=selected' : '' }}>{{ text_enabled }}</option>
+                                    <option value="no" {{ (data.PintaSmsSender.AdminPlaceOrder.Enabled is empty or data.PintaSmsSender.AdminPlaceOrder.Enabled == 'no') ? 'selected=selected' : '' }}>{{ text_disabled }}</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-xs-4"><h5>{{ order_message }}</h5><span class="help">{{ help_a_m_on_new_order_placed }}</span></td>
+                        <td class="col-xs-8">
+                            <div class="col-xs-12">
+                                <br /><textarea rows="3" id="text-admin-order-placed" class="form-control" name="PintaSmsSender[AdminPlaceOrderText]">{{ data.PintaSmsSender.AdminPlaceOrderText is not empty ? data.PintaSmsSender.AdminPlaceOrderText : a_m_on_new_order_placed }}</textarea>
+                                <div style="margin-top:5px"> <span>{{ order_characters }} <span id="text-admin-order-placed-characters">0</span></span><span style="padding-left:20px;">{{ order_sms_counter }} <span id="text-admin-order-placed-sms">1</span></span> </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="customerRegisterAdmin" class="tab-pane fade">
+                <table class="table">
+                    <tr>
+                        <td class="col-xs-4"><h5>{{ text_status }}</h5></td>
+                        <td class="col-xs-8">
+                            <div class="col-xs-5">
+                                <select name="PintaSmsSender[AdminRegister][Enabled]" class="form-control">
+                                    <option value="yes" {{ (data.PintaSmsSender.AdminRegister.Enabled is not empty and data.PintaSmsSender.AdminRegister.Enabled == 'yes') ? 'selected=selected' : '' }}> {{ text_enabled }}</option>
+                                    <option value="no" {{ (data.PintaSmsSender.AdminRegister.Enabled is empty or data.PintaSmsSender.AdminRegister.Enabled == 'no')  ? 'selected=selected' : '' }}>{{ text_disabled }}</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-xs-4"><h5>{{ order_message }}</h5><span
+                                    class="help">{{ help_a_m_on_successful_signup }}</span></td>
+                        <td class="col-xs-8">
+                            <div class="col-xs-12">
+                                <br/><textarea rows="3" id="text-admin-on-register" class="form-control"
+                                               name="PintaSmsSender[AdminRegisterText]">{{ data.PintaSmsSender.AdminRegisterText is not empty ? data.PintaSmsSender.AdminRegisterText : a_m_on_successful_signup }}</textarea>
+                                <div style="margin-top:5px"><span>{{ order_characters }} <span
+                                                id="text-admin-on-register-characters">0</span></span><span
+                                            style="padding-left:20px;">{{ order_sms_counter }} <span
+                                                id="text-admin-on-register-sms">1</span></span></div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let maxSmsChars = {{ sms_size }};
+
+    function countCharactersAndSMS(selector, charCounter, smsCounter) {
+        let count = [];
+        let sms = 1;
+
+        $('[id="' + selector + '"]').each(function (i) {
+            count[i] = $(this).val().length;
+            window.messageLength = count[i];
+
+            $(this).keyup(function () {
+                let tabOrder = $(this).closest('.active');
+                window.messageLength = $(this).val().length;
+
+                tabOrder.find('#' + charCounter + '').html($(this).val().length);
+                bytes_count = getByteLen($(this).val());
+                if (bytes_count > 0 && bytes_count < maxSmsChars) {
+                    tabOrder.find('#' + smsCounter + '').html(1);
+                } else if (bytes_count >= maxSmsChars) {
+                    tabOrder.find('#' + smsCounter + '').html(Math.floor(bytes_count / maxSmsChars) + 1);
+                } else {
+                    tabOrder.find('#' + smsCounter + '').html(0);
+                }
+            });
+        });
+
+        $('[id="' + charCounter + '"]').each(function (i) {
+            $(this).html(count[i]);
+        });
+
+        $('[id="' + smsCounter + '"]').each(function () {
+            $(this).html(sms);
+        });
+
+    }
+
+    function getByteLen(normal_val) {
+        // Force string type
+        normal_val = String(normal_val);
+        let byteLen = 0;
+        for (let i = 0; i < normal_val.length; i++) {
+            let c = normal_val.charCodeAt(i);
+            byteLen += c < (1 << 7) ? 1 :
+                c < (1 << 11) ? 2 :
+                    c < (1 << 16) ? 3 :
+                        c < (1 << 21) ? 4 :
+                            c < (1 << 26) ? 5 :
+                                c < (1 << 31) ? 6 : Number.NaN;
+        }
+        return byteLen;
+    }
+
+    function changeOrderStatuses(event, checked) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        $('.orderStatuses.checkbox input').each(function () {
+            this.checked = checked;
+        });
+    }
+
+    $(function () {
+        $('a[href="#customerOrder"]').tab('show');
+
+        countCharactersAndSMS('text-customer-place-quick-order', 'text-customer-place-quick-order-characters', 'text-customer-place-quick-order-sms');
+        countCharactersAndSMS('text-customer-place-order', 'text-customer-place-order-characters', 'text-customer-place-order-sms');
+        countCharactersAndSMS('text-customer-order-status-change', 'text-customer-order-status-change-characters', 'text-customer-order-status-change-sms');
+        countCharactersAndSMS('text-customer-register', 'text-customer-register-characters', 'text-customer-register-sms');
+        countCharactersAndSMS('text-admin-quick-order-placed', 'text-admin-quick-order-placed-characters', 'text-admin-quick-order-placed-sms');
+        countCharactersAndSMS('text-admin-order-placed', 'text-admin-order-placed-characters', 'text-admin-order-placed-sms');
+        countCharactersAndSMS('text-admin-on-register', 'text-admin-on-register-characters', 'text-admin-on-register-sms');
+
+        $('#selectall').click(function (event) {
+            changeOrderStatuses(event, true);
+        });
+
+        $('#deselectall').click(function (event) {
+            changeOrderStatuses(event, false)
+        });
+    });
+</script>

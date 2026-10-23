@@ -1,0 +1,53 @@
+<table class="table">
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ text_info }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <span class="help"><i class="fa fa-info-circle"></i>&nbsp;{{ bulk_gate_help_app }}</span>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ bulk_gate_app_id }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="PintaSmsSender[{{ bulk_gate_title }}][AppId]" value="{{ data.PintaSmsSender.BulkGate.AppId ? data.PintaSmsSender.BulkGate.AppId : "" }}" />
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ bulk_gate_token }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="PintaSmsSender[{{ bulk_gate_title }}][Token]" value="{{ data.PintaSmsSender.BulkGate.Token ? data.PintaSmsSender.BulkGate.Token : "" }}" />
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ bulk_gate_sender }}</strong></h5>
+            <span class="help"><i class="fa fa-info-circle"></i>&nbsp;{{ bulk_gate_help_sender }}</span>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="PintaSmsSender[{{ bulk_gate_title }}][Sender]" maxlength="15" value="{{ data.PintaSmsSender.BulkGate.Sender ? data.PintaSmsSender.BulkGate.Sender : "" }}" />
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>

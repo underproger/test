@@ -1,0 +1,32 @@
+<section class="news">
+  <div class="_container">
+    <div class="news__wrapper">
+      <h2 class="news__title h2 section-title">{{ name }}</h2>
+
+      <div class="news__list">
+        <div class="news-item">
+          <a href="{{ articles[0].href }}" class="news-item-image">
+            <div class="news-item-image__wrapper">
+              <img src="{{ articles[0].thumb }}" alt="{{ articles[0].name }}" />
+            </div>
+          </a>
+          <a href="{{ articles[0].href }}" class="news-item__title">{{ articles[0].name }}</a>
+        </div>
+        <div class="news-item">
+          <a href="{{ articles[1].href }}" class="news-item-image">
+            <div class="news-item-image__wrapper">
+              <img src="{{ articles[1].thumb }}" alt="{{ articles[1].name }}" />
+            </div>
+          </a>
+          <a href="{{ articles[1].href }}" class="news-item__title">{{ articles[1].name }}</a>
+          <div class="news-item__text">{{ articles[1].description }}</div>
+          {# <div class="news-item__date">
+            <span class="date">{{ articles[1].date_day }}<span>/{{ articles[1].date_month }}</span></span>
+            <span class="year">{{ articles[1].date_year }}</span>
+          </div> #}
+        </div>
+       
+      </div>
+    </div>
+  </div>
+</section>

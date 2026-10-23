@@ -1,0 +1,65 @@
+<table class="table">
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ text_info }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <span class="help"><i class="fa fa-info-circle"></i>&nbsp;{{ gatewayapi_help_keys }}</span>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ gatewayapi_api_key }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group" name="api_input">
+                    <input type="text" class="form-control" name="PintaSmsSender[GatewayAPI][APIKey]" value="{{ data.PintaSmsSender.GatewayAPI.APIKey ? data.PintaSmsSender.GatewayAPI.APIKey : "" }}" />
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ gatewayapi_api_secret }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group" name="api_input">
+                    <input type="text" class="form-control" name="PintaSmsSender[GatewayAPI][APISecret]" value="{{ data.PintaSmsSender.GatewayAPI.APISecret ? data.PintaSmsSender.GatewayAPI.APISecret : "" }}" />
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ gatewayapi_token }}</strong></h5>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="PintaSmsSender[GatewayAPI][Token]" value="{{ data.PintaSmsSender.GatewayAPI.Token ? data.PintaSmsSender.GatewayAPI.Token : "" }}" />
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td class="col-xs-3">
+            <h5><strong>{{ gatewayapi_sender }}</strong></h5>
+            <span class="help"><i class="fa fa-info-circle"></i>&nbsp;{{ gatewayapi_help_sender }}</span>
+        </td>
+        <td class="col-xs-9">
+            <div class="col-xs-5">
+                <div class="form-group" name="phone_input">
+                    <input type="text" class="form-control" name="PintaSmsSender[GatewayAPI][Sender]" maxlength="15" value="{{ data.PintaSmsSender.GatewayAPI.Sender ? data.PintaSmsSender.GatewayAPI.Sender : "" }}" />
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>

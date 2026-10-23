@@ -1,0 +1,8 @@
+<div id="custom-total" class="checkout-cart-footer">
+  {% for total in totals %}
+    <div class="checkout-cart-footer-total">
+      <div class="checkout-cart-footer-total__label">{{ total.title }}:</div>
+      <div class="checkout-cart-footer-total__price">{{ total.text }}</div>
+    </div>
+  {% endfor %}
+</div>

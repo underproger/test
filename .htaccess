@@ -17,6 +17,13 @@ Options -Indexes
 # Deny from all
 </FilesMatch>
 
+# test.natalize.com: закрыть от индексации (на основном домене не срабатывает)
+<IfModule mod_headers.c>
+ <If "%{HTTP_HOST} == 'test.natalize.com'">
+  Header always set X-Robots-Tag "noindex, nofollow"
+ </If>
+</IfModule>
+
 # SEO URL Settings
 RewriteEngine On
 RewriteRule .* - [E=noabort:1]
@@ -25,7 +32,10 @@ RewriteRule .* - [E=noabort:1]
 # If your opencart installation does not run on the main web folder make sure you folder it does run in ie. / becomes /shop/
 
 RewriteBase /
-RewriteCond %{QUERY_STRING} ^(.*)&?page=1$ 
+# test.natalize.com: отдаём robots с Disallow: /
+RewriteCond %{HTTP_HOST} ^test\.natalize\.com$ [NC]
+RewriteRule ^robots\.txt$ test-robots.txt [L]
+RewriteCond %{QUERY_STRING} ^(.*)&?page=1$
 RewriteRule ^(.*)/?$ /$1?%1%2 [R=301,L] #remove page=1 from url
 RewriteRule ^sitemap.xml$ index.php?route=extension/feed/google_sitemap [L]
 RewriteRule ^googlebase.xml$ index.php?route=extension/feed/google_base [L]

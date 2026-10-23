@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<!-- [if IE]><![endif] -->
+<!-- [if IE 8 ]><html dir="{{ direction }}" lang="{{ lang }}" class="ie8"><![endif] -->
+<!-- [if IE 9 ]><html dir="{{ direction }}" lang="{{ lang }}" class="ie9"><![endif] -->
+<!-- [if (gt IE 9)|!(IE)]><! -->
+<html dir="{{ direction }}" lang="{{ lang }}">
+  <!-- <![endif] -->
+  <head prefix="og:http://ogp.me/ns# fb:http://ogp.me/ns/fb# product:http://ogp.me/ns/product#">
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P6PLJ6NR');</script>
+<!-- End Google Tag Manager -->
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{{ title }}</title>
+    {% if robots %}
+      <meta name="robots" content="{{ robots }}" />
+    {% endif %}
+    <base href="{{ base }}" />
+    {% if description %}
+      <meta name="description" content="{{ description }}" />
+    {% endif %}
+    {% if keywords %}
+      <meta name="keywords" content="{{ keywords }}" />
+    {% endif %}
+    <meta property="og:title" content="{{ title }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ og_url }}" />
+    {% if og_image %}
+      <meta property="og:image" content="{{ og_image }}" />
+    {% else %}
+      <meta property="og:image" content="{{ logo }}" />
+    {% endif %}
+    <meta property="og:site_name" content="{{ name }}" />
+    <meta name="it-rating" content="it-rat-1320b27f41502b183e5f4961dd00e5c0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+    <link href="catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="catalog/view/theme/impulse/stylesheet/style.css?ver=1.9.3" rel="stylesheet" />
+    {% for style in styles %}
+      <link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}" />
+    {% endfor %}
+    {% for script in scripts %}
+      <script src="{{ script }}" type="text/javascript"></script>
+    {% endfor %}
+
+    <script src="catalog/view/javascript/common.js" type="text/javascript"></script>
+
+        {{mlseo_meta}}
+      
+    {% for link in links %}
+      <link href="{{ link.href }}" rel="{{ link.rel }}" />
+    {% endfor %}
+    {% for analytic in analytics %}
+      {{ analytic }}
+    {% endfor %}
+    
+    <!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '760545605571584');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=760545605571584&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+			{# // remarketing #}			
+			{% if remarketing_head %}
+			{{ remarketing_head }} 
+			{% endif %}
+			
+
+				{{ conversion_global }}
+			
+  </head>
+  <body>
+
+			{% if remarketing_body %}
+			{{ remarketing_body }}
+			{% endif %}
+		
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P6PLJ6NR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    {{ cart }}
+
+    <header class="header">
+      {% if top_header_message %}
+        <div class="header-top">
+          <div class="_container">
+            <p>{{ top_header_message }}</p>
+          </div>
+        </div>
+      {% endif %}
+      <div class="_container">
+        <div class="header__wrapper">
+          <div class="header__logo">
+            <a href="{{ home }}" class=""><img src="/catalog/view/theme/impulse/image/logo.png" alt="header-logo" /></a>
+          </div>
+
+          <nav class="menu">
+            <div class="menu__box">
+              {# <ul class="menu__list">
+                <li class="has_submenu">
+                  <a href="#" class="menu__item menu__link _mbrands-open" data-mbrands=".mbrands-new">
+                      Нові надходження<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="4px" width="8px" version="1.1" viewBox="0 96.88 386.26 192.5" xml:space="preserve">
+                      <polygon points="0,96.879 193.129,289.379 386.257,96.879 " />
+                    </svg>
+                  </a>
+                </li>
+                <li class="has_submenu">
+                  <a href="#" class="menu__item menu__link _mbrands-open" data-mbrands=".mbrands-default">
+                    Бренди<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="4px" width="8px" version="1.1" viewBox="0 96.88 386.26 192.5" xml:space="preserve">
+                      <polygon points="0,96.879 193.129,289.379 386.257,96.879 " />
+                    </svg>
+                  </a>
+                </li>
+                <li class="has_submenu">
+                  <a href="#" class="menu__item menu__link _mbrands-open" data-mbrands=".mbrands-default">
+                    Колекції<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="4px" width="8px" version="1.1" viewBox="0 96.88 386.26 192.5" xml:space="preserve">
+                      <polygon points="0,96.879 193.129,289.379 386.257,96.879 " />
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ sales }}" class="menu__item menu__link">Акції</a>
+                </li>
+                <li class="has_submenu">
+                  <a href="#" class="menu__item menu__link _mbrands-open" data-mbrands=".mbrands-sale">
+                    Sale<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="4px" width="8px" version="1.1" viewBox="0 96.88 386.26 192.5" xml:space="preserve">
+                      <polygon points="0,96.879 193.129,289.379 386.257,96.879 " />
+                    </svg>
+                  </a>
+                </li>
+                <li class="has_submenu">
+                  <a href="#" class="menu__item menu__link _mbrands-open" data-mbrands=".mbrands-outlet">
+                    Outlet<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="4px" width="8px" version="1.1" viewBox="0 96.88 386.26 192.5" xml:space="preserve">
+                      <polygon points="0,96.879 193.129,289.379 386.257,96.879 " />
+                    </svg>
+                  </a>
+                </li>
+                <li class="has_submenu">
+                  <a href="#" class="menu__item menu__link _mbrands-open" data-mbrands=".mbrands-coming-soon">
+                    Coming soon<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="4px" width="8px" version="1.1" viewBox="0 96.88 386.26 192.5" xml:space="preserve">
+                      <polygon points="0,96.879 193.129,289.379 386.257,96.879 " />
+                    </svg>
+                  </a>
+                </li>
+              </ul> #}
+
+              <ul class="menu__list">
+                <li class="">
+                  <a href="{{ newest }}" class="menu__item menu__link">Нові надходження</a>
+                </li>
+                <li class="">
+                  <a href="{{ brands }}" class="menu__item has_submenu">
+                    Бренди<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="4px" width="8px" version="1.1" viewBox="0 96.88 386.26 192.5" xml:space="preserve">
+                      <polygon points="0,96.879 193.129,289.379 386.257,96.879 " />
+                    </svg>
+                  </a>
+
+                  <div class="menu__submenu">
+                    <ul>
+                      {% if manufacturers %}
+                        {% for manufacturer in manufacturers %}
+                          <li class="">
+                            <a href="{{ manufacturer.href }}" class="menu__item">{{ manufacturer.name }}</a>
+                          </li>
+                        {% endfor %}
+                        <li class="">
+                          <a href="{{ brands }}" class="menu__item">Всі бренди</a>
+                        </li>
+                      {% endif %}
+                    </ul>
+                  </div>
+                </li>
+                <li class="">
+                  <a href="{{ collections }}" class="menu__item has_submenu">
+                    Колекції<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" height="4px" width="8px" version="1.1" viewBox="0 96.88 386.26 192.5" xml:space="preserve">
+                      <polygon points="0,96.879 193.129,289.379 386.257,96.879 " />
+                    </svg>
+                  </a>
+
+                  <div class="menu__submenu">
+                    <ul>
+                      {% if categories %}
+                        {% for category in categories %}
+                          <li class="">
+                            <a href="{{ category.href }}" class="menu__item">{{ category.name }}</a>
+                          </li>
+                        {% endfor %}
+                        <li class="">
+                          <a href="{{ collections }}" class="menu__item">Всі товари</a>
+                        </li>
+                      {% endif %}
+                    </ul>
+                  </div>
+                </li>
+                <li>
+                  <a href="{{ sales }}" class="menu__item menu__link">Акції</a>
+                </li>
+                <li class="">
+                  <a href="{{ sale }}" class="menu__item menu__link">Premium Sale</a>
+                </li>
+                <li class="">
+                  <a href="{{ outlet }}" class="menu__item menu__link">Outlet</a>
+                </li>
+                <li class="">
+                  <a href="{{ futured }}" class="menu__item menu__link">Coming soon</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+
+          <a href="tel:{{ telephone }}" class="header__phone">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.2803 9.21994C12.987 8.92669 12.513 8.92669 12.2198 9.21994L11.0243 10.4154C10.47 10.2504 9.43576 9.87544 8.78026 9.21994C8.12476 8.56444 7.74976 7.53019 7.58476 6.97594L8.78026 5.78044C9.07351 5.48719 9.07351 5.01319 8.78026 4.71994L5.78026 1.71994C5.48701 1.42669 5.01301 1.42669 4.71976 1.71994L2.68576 3.75394C2.40076 4.03894 2.24026 4.43044 2.24626 4.83019C2.26351 5.89819 2.54626 9.60769 5.46976 12.5312C8.39326 15.4547 12.1028 15.7367 13.1715 15.7547C13.1753 15.7547 13.1888 15.7547 13.1925 15.7547C13.5885 15.7547 13.9628 15.5987 14.2463 15.3152L16.2803 13.2812C16.5735 12.9879 16.5735 12.5139 16.2803 12.2207L13.2803 9.21994ZM13.185 14.2539C12.249 14.2382 9.04651 13.9869 6.53026 11.4699C4.00576 8.94544 3.76126 5.73169 3.74626 4.81444L5.25001 3.31069L7.18951 5.25019L6.21976 6.21994C6.04051 6.39844 5.96401 6.65644 6.01576 6.90394C6.03376 6.99019 6.47401 9.03544 7.71901 10.2804C8.96401 11.5254 11.0093 11.9657 11.0955 11.9837C11.3453 12.0369 11.601 11.9597 11.7795 11.7804L12.75 10.8107L14.6895 12.7502L13.185 14.2539Z" fill="#A5A5A5" />
+            </svg>
+            <span>{{ telephone }}</span>
+          </a>
+
+          <div class="header__col">
+            <div class="header-search">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="#585858" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.813 16.8711L13.8369 12.8951C14.9205 11.5699 15.4532 9.87893 15.325 8.17198C15.1967 6.46502 14.4173 4.87267 13.1479 3.72427C11.8785 2.57587 10.2163 1.9593 8.50509 2.00209C6.79386 2.04487 5.16454 2.74374 3.95414 3.95414C2.74374 5.16454 2.04487 6.79386 2.00209 8.50509C1.9593 10.2163 2.57587 11.8785 3.72427 13.1479C4.87267 14.4173 6.46502 15.1967 8.17198 15.325C9.87893 15.4532 11.5699 14.9205 12.8951 13.8369L16.8711 17.813C16.9968 17.9344 17.165 18.0015 17.3397 18C17.5143 17.9985 17.6814 17.9284 17.8049 17.8049C17.9284 17.6814 17.9985 17.5143 18 17.3397C18.0015 17.165 17.9344 16.9968 17.813 16.8711ZM8.68251 14.0115C7.62855 14.0115 6.59825 13.6989 5.72191 13.1134C4.84556 12.5278 4.16254 11.6956 3.7592 10.7218C3.35587 9.74808 3.25034 8.6766 3.45595 7.64289C3.66157 6.60917 4.16911 5.65964 4.91437 4.91437C5.65964 4.16911 6.60917 3.66157 7.64289 3.45595C8.6766 3.25034 9.74808 3.35587 10.7218 3.7592C11.6956 4.16254 12.5278 4.84556 13.1134 5.72191C13.6989 6.59825 14.0115 7.62855 14.0115 8.68251C14.0099 10.0954 13.4479 11.4499 12.4489 12.4489C11.4499 13.4479 10.0954 14.0099 8.68251 14.0115Z" fill="inherit" stroke="inherit" stroke-width="0.4" />
+              </svg>
+            </div>
+            <a href="{{ wishlist }}" class="header-favorites">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="#585858" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M10.0013 4.16667C9.71832 3.8407 9.38843 3.55607 9.02448 3.31867C8.22019 2.79403 7.24957 2.5 6.2513 2.5C3.68464 2.5 1.66797 4.4782 1.66797 6.99591C1.66797 7.8905 1.88109 8.74001 2.24616 9.5482C3.37847 12.0572 5.97277 14.1744 8.20588 15.9969C8.8488 16.5216 9.46177 17.0219 10.0013 17.5C10.5408 17.0219 11.1538 16.5216 11.7967 15.9969C14.0298 14.1744 16.624 12.0572 17.7564 9.54834C18.1215 8.74011 18.3346 7.89055 18.3346 6.99591C18.3346 4.4782 16.318 2.5 13.7513 2.5C12.753 2.5 11.7824 2.79403 10.9781 3.31867C10.6142 3.55607 10.2843 3.8407 10.0013 4.16667ZM10.0013 15.3083C10.2703 15.0853 10.5452 14.8605 10.8198 14.6361C11.0523 14.4459 11.2846 14.2561 11.5126 14.0678C12.4255 13.3141 13.3191 12.5483 14.1104 11.7459C15.0896 10.7528 15.8174 9.79694 16.2412 8.85349C16.5207 8.23058 16.668 7.61361 16.668 6.99591C16.668 5.42879 15.4279 4.16667 13.7513 4.16667C12.7609 4.16667 11.8367 4.59477 11.2599 5.25926L10.0013 6.70903L8.74273 5.25926C8.16587 4.59477 7.24166 4.16667 6.2513 4.16667C4.57471 4.16667 3.33464 5.42879 3.33464 6.99591C3.33464 7.61361 3.48192 8.23059 3.76141 8.85349C4.18521 9.79694 4.91299 10.7528 5.89221 11.7459C6.6835 12.5483 7.57709 13.3141 8.48999 14.0678C8.71804 14.2561 8.95028 14.4459 9.18283 14.6361C9.45736 14.8605 9.73232 15.0853 10.0013 15.3083Z" fill="inherit" />
+              </svg>
+            </a>
+            <div class="header-cart _mcart-open">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="#585858" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_159_244)">
+                  <path d="M17.0347 3.05775C16.8238 2.80458 16.5597 2.60096 16.2612 2.46136C15.9626 2.32176 15.637 2.2496 15.3075 2.25H3.1815L3.15 1.98675C3.08554 1.43956 2.82254 0.935049 2.41087 0.568858C1.9992 0.202667 1.46747 0.000256345 0.9165 0L0.75 0C0.551088 0 0.360322 0.0790176 0.21967 0.21967C0.0790176 0.360322 0 0.551088 0 0.75C0 0.948912 0.0790176 1.13968 0.21967 1.28033C0.360322 1.42098 0.551088 1.5 0.75 1.5H0.9165C1.1002 1.50002 1.2775 1.56747 1.41478 1.68954C1.55206 1.81161 1.63976 1.97981 1.66125 2.16225L2.69325 10.9373C2.80039 11.8498 3.23886 12.6913 3.92543 13.302C4.612 13.9127 5.49889 14.25 6.41775 14.25H14.25C14.4489 14.25 14.6397 14.171 14.7803 14.0303C14.921 13.8897 15 13.6989 15 13.5C15 13.3011 14.921 13.1103 14.7803 12.9697C14.6397 12.829 14.4489 12.75 14.25 12.75H6.41775C5.95354 12.7487 5.5011 12.6038 5.12245 12.3353C4.7438 12.0668 4.45748 11.6877 4.30275 11.25H13.2428C14.122 11.2501 14.9733 10.9412 15.6479 10.3773C16.3225 9.81348 16.7775 9.03052 16.9335 8.16525L17.5223 4.89975C17.581 4.57576 17.5678 4.2428 17.4836 3.92448C17.3993 3.60616 17.2461 3.31026 17.0347 3.05775ZM16.05 4.6335L15.4605 7.899C15.3668 8.41875 15.0934 8.88899 14.6879 9.2274C14.2824 9.5658 13.7709 9.7508 13.2428 9.75H4.06425L3.3585 3.75H15.3075C15.4177 3.74934 15.5266 3.77297 15.6267 3.81919C15.7267 3.86542 15.8153 3.93311 15.8861 4.01746C15.957 4.1018 16.0085 4.20073 16.0368 4.3072C16.0651 4.41368 16.0696 4.52508 16.05 4.6335Z" fill="inherit" />
+                  <path d="M5.25 18C6.07842 18 6.74999 17.3284 6.74999 16.5C6.74999 15.6716 6.07842 15 5.25 15C4.42157 15 3.75 15.6716 3.75 16.5C3.75 17.3284 4.42157 18 5.25 18Z" fill="inherit" />
+                  <path d="M12.75 18C13.5784 18 14.25 17.3284 14.25 16.5C14.25 15.6716 13.5784 15 12.75 15C11.9216 15 11.25 15.6716 11.25 16.5C11.25 17.3284 11.9216 18 12.75 18Z" fill="inherit" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_159_244">
+                    <rect width="18" height="18" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+              <span>{{ text_items }}</span>
+            </div>
+            <a href="{{ login }}" class="header-auth">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="#585858" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 1.5C6.93225 1.5 5.25 3.18225 5.25 5.25C5.25 7.31775 6.93225 9 9 9C11.0677 9 12.75 7.31775 12.75 5.25C12.75 3.18225 11.0677 1.5 9 1.5ZM9 7.5C7.7595 7.5 6.75 6.4905 6.75 5.25C6.75 4.0095 7.7595 3 9 3C10.2405 3 11.25 4.0095 11.25 5.25C11.25 6.4905 10.2405 7.5 9 7.5ZM15.75 15.75V15C15.75 12.1057 13.3942 9.75 10.5 9.75H7.5C4.605 9.75 2.25 12.1057 2.25 15V15.75H3.75V15C3.75 12.9322 5.43225 11.25 7.5 11.25H10.5C12.5677 11.25 14.25 12.9322 14.25 15V15.75H15.75Z" fill="inherit" />
+              </svg>
+            </a>
+          </div>
+
+          <div id="search" class="input-group">
+            <input type="text" name="search" value="" placeholder="Пошук" class="form-control input-lg" />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default btn-lg">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="#585858" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.813 16.8711L13.8369 12.8951C14.9205 11.5699 15.4532 9.87893 15.325 8.17198C15.1967 6.46502 14.4173 4.87267 13.1479 3.72427C11.8785 2.57587 10.2163 1.9593 8.50509 2.00209C6.79386 2.04487 5.16454 2.74374 3.95414 3.95414C2.74374 5.16454 2.04487 6.79386 2.00209 8.50509C1.9593 10.2163 2.57587 11.8785 3.72427 13.1479C4.87267 14.4173 6.46502 15.1967 8.17198 15.325C9.87893 15.4532 11.5699 14.9205 12.8951 13.8369L16.8711 17.813C16.9968 17.9344 17.165 18.0015 17.3397 18C17.5143 17.9985 17.6814 17.9284 17.8049 17.8049C17.9284 17.6814 17.9985 17.5143 18 17.3397C18.0015 17.165 17.9344 16.9968 17.813 16.8711ZM8.68251 14.0115C7.62855 14.0115 6.59825 13.6989 5.72191 13.1134C4.84556 12.5278 4.16254 11.6956 3.7592 10.7218C3.35587 9.74808 3.25034 8.6766 3.45595 7.64289C3.66157 6.60917 4.16911 5.65964 4.91437 4.91437C5.65964 4.16911 6.60917 3.66157 7.64289 3.45595C8.6766 3.25034 9.74808 3.35587 10.7218 3.7592C11.6956 4.16254 12.5278 4.84556 13.1134 5.72191C13.6989 6.59825 14.0115 7.62855 14.0115 8.68251C14.0099 10.0954 13.4479 11.4499 12.4489 12.4489C11.4499 13.4479 10.0954 14.0099 8.68251 14.0115Z" fill="inherit" stroke="inherit" stroke-width="0.4"></path>
+                </svg>
+              </button>
+            </span>
+            <span class="btn close-search">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.9998 5.99982C17.8123 5.81235 17.558 5.70703 17.2928 5.70703C17.0277 5.70703 16.7733 5.81235 16.5858 5.99982L11.9998 10.5858L7.41382 5.99982C7.22629 5.81235 6.97198 5.70703 6.70682 5.70703C6.44165 5.70703 6.18735 5.81235 5.99982 5.99982C5.81235 6.18735 5.70703 6.44165 5.70703 6.70682C5.70703 6.97198 5.81235 7.22629 5.99982 7.41382L10.5858 11.9998L5.99982 16.5858C5.81235 16.7733 5.70703 17.0277 5.70703 17.2928C5.70703 17.558 5.81235 17.8123 5.99982 17.9998C6.18735 18.1873 6.44165 18.2926 6.70682 18.2926C6.97198 18.2926 7.22629 18.1873 7.41382 17.9998L11.9998 13.4138L16.5858 17.9998C16.7733 18.1873 17.0277 18.2926 17.2928 18.2926C17.558 18.2926 17.8123 18.1873 17.9998 17.9998C18.1873 17.8123 18.2926 17.558 18.2926 17.2928C18.2926 17.0277 18.1873 16.7733 17.9998 16.5858L13.4138 11.9998L17.9998 7.41382C18.1873 7.22629 18.2926 6.97198 18.2926 6.70682C18.2926 6.44165 18.1873 6.18735 17.9998 5.99982Z" fill="#1A1A1A"></path>
+              </svg>
+            </span>
+          </div>
+
+          <div class="menu__toggle">
+            <span></span>
+          </div>
+
+          <div class="mbrands mbrands-default">
+            <div class="mbrands__wrapper">
+              <div class="mbrands__col _grey">
+                <div class="mbrands__title">БРЕНДИ</div>
+                <div class="mbrands-list">
+                  {% if manufacturers %}
+                    {% for manufacturer in manufacturers %}
+                      <a href="{{ manufacturer.href }}" class="mbrands-list__item">{{ manufacturer.name }}</a>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+                <a href="{{ brands }}" class="mbrands__link">Всі бренди</a>
+              </div>
+
+              <div class="mbrands__col">
+                <div class="mbrands__title">каталог</div>
+                <div class="mbrands-list">
+                  {% if categories %}
+                    {% for category in categories %}
+                      <a href="{{ category.href }}" class="mbrands-list__item">{{ category.name }}</a>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="mbrands__col">
+                <div class="mbrands-ads">
+                  <a href="{{ sales_list.link }}" class="mbrands-ads-image">
+                    <div class="mbrands-ads-image__wrapper">
+                      <img src="/image/{{ sales_list.image }}" alt="{{ sales_list.title }}" />
+                    </div>
+                  </a>
+
+                  <a href="{{ sales_list.link }}" class="mbrands-ads__title">{{ sales_list.title }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mbrands mbrands-new">
+            <div class="mbrands__wrapper">
+              <div class="mbrands__col _grey">
+                <div class="mbrands__title">БРЕНДИ</div>
+                <div class="mbrands-list">
+                  {% if manufacturers_new %}
+                    {% for manufacturer in manufacturers_new %}
+                      <a href="{{ manufacturer.href }}" class="mbrands-list__item">{{ manufacturer.name }}</a>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+                <a href="{{ brands }}" class="mbrands__link">Всі бренди</a>
+              </div>
+
+              <div class="mbrands__col">
+                <div class="mbrands__title">каталог</div>
+                <div class="mbrands-list">
+                  {% if categories_new %}
+                    {% for category in categories_new %}
+                      <a href="{{ category.href }}" class="mbrands-list__item">{{ category.name }}</a>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="mbrands__col">
+                <div class="mbrands-ads">
+                  <a href="{{ sales_list.link }}" class="mbrands-ads-image">
+                    <div class="mbrands-ads-image__wrapper">
+                      <img src="/image/{{ sales_list.image }}" alt="{{ sales_list.title }}" />
+                    </div>
+                  </a>
+
+                  <a href="{{ sales_list.link }}" class="mbrands-ads__title">{{ sales_list.title }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mbrands mbrands-sale">
+            <div class="mbrands__wrapper">
+              <div class="mbrands__col _grey">
+                <div class="mbrands__title">БРЕНДИ</div>
+                <div class="mbrands-list">
+                  {% if manufacturers_sale %}
+                    {% for manufacturer in manufacturers_sale %}
+                      <a href="{{ manufacturer.href }}" class="mbrands-list__item">{{ manufacturer.name }}</a>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+                <a href="{{ brands }}" class="mbrands__link">Всі бренди</a>
+              </div>
+
+              <div class="mbrands__col">
+                <div class="mbrands__title">каталог</div>
+                <div class="mbrands-list">
+                  {% if categories_sale %}
+                    {% for category in categories_sale %}
+                      <a href="{{ category.href }}" class="mbrands-list__item">{{ category.name }}</a>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="mbrands__col">
+                <div class="mbrands-ads">
+                  <a href="{{ sales_list.link }}" class="mbrands-ads-image">
+                    <div class="mbrands-ads-image__wrapper">
+                      <img src="/image/{{ sales_list.image }}" alt="{{ sales_list.title }}" />
+                    </div>
+                  </a>
+
+                  <a href="{{ sales_list.link }}" class="mbrands-ads__title">{{ sales_list.title }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mbrands mbrands-outlet">
+            <div class="mbrands__wrapper">
+              <div class="mbrands__col _grey">
+                <div class="mbrands__title">БРЕНДИ</div>
+                <div class="mbrands-list">
+                  {% if manufacturers_outlet %}
+                    {% for manufacturer in manufacturers_outlet %}
+                      <a href="{{ manufacturer.href }}" class="mbrands-list__item">{{ manufacturer.name }}</a>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+                <a href="{{ brands }}" class="mbrands__link">Всі бренди</a>
+              </div>
+
+              <div class="mbrands__col">
+                <div class="mbrands__title">каталог</div>
+                <div class="mbrands-list">
+                  {% if categories_outlet %}
+                    {% for category in categories_outlet %}
+                      <a href="{{ category.href }}" class="mbrands-list__item">{{ category.name }}</a>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="mbrands__col">
+                <div class="mbrands-ads">
+                  <a href="{{ sales_list.link }}" class="mbrands-ads-image">
+                    <div class="mbrands-ads-image__wrapper">
+                      <img src="/image/{{ sales_list.image }}" alt="{{ sales_list.title }}" />
+                    </div>
+                  </a>
+
+                  <a href="{{ sales_list.link }}" class="mbrands-ads__title">{{ sales_list.title }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mbrands mbrands-coming-soon">
+            <div class="mbrands__wrapper">
+              <div class="mbrands__col _grey">
+                <div class="mbrands__title">БРЕНДИ</div>
+                <div class="mbrands-list">
+                  {% if manufacturers_coming_soon %}
+                    {% for manufacturer in manufacturers_coming_soon %}
+                      <a href="{{ manufacturer.href }}" class="mbrands-list__item">{{ manufacturer.name }}</a>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+                <a href="{{ brands }}" class="mbrands__link">Всі бренди</a>
+              </div>
+
+              <div class="mbrands__col">
+                <div class="mbrands__title">каталог</div>
+                <div class="mbrands-list">
+                  {% if categories_coming_soon %}
+                    {% for category in categories_coming_soon %}
+                      <a href="{{ category.href }}" class="mbrands-list__item">{{ category.name }}</a>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="mbrands__col">
+                <div class="mbrands-ads">
+                  <a href="{{ sales_list.link }}" class="mbrands-ads-image">
+                    <div class="mbrands-ads-image__wrapper">
+                      <img src="/image/{{ sales_list.image }}" alt="{{ sales_list.title }}" />
+                    </div>
+                  </a>
+
+                  <a href="{{ sales_list.link }}" class="mbrands-ads__title">{{ sales_list.title }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  </body>
+</html>

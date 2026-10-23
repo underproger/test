@@ -1,0 +1,28 @@
+# Конфиги с доступами — только на хостинге
+/config.php
+/admin/config.php
+
+# Дампы БД
+*.sql
+*.sql.gz
+
+# Storage: рантайм-данные не храним, папки держим через index.html
+/test-natalize-storage/cache/*
+!/test-natalize-storage/cache/index.html
+/test-natalize-storage/logs/*
+!/test-natalize-storage/logs/index.html
+/test-natalize-storage/session/*
+!/test-natalize-storage/session/index.html
+/test-natalize-storage/download/*
+!/test-natalize-storage/download/index.html
+/test-natalize-storage/upload/*
+!/test-natalize-storage/upload/index.html
+/test-natalize-storage/csvprice_pro/*
+!/test-natalize-storage/csvprice_pro/index.html
+
+# Кэш картинок
+/image/cache/*
+!/image/cache/index.html
+
+.DS_Store
+Thumbs.db

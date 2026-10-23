@@ -1,9 +1,8 @@
 <?php
 /**
  * Знижка на перше замовлення.
- * Перше замовлення визначається за номером телефону: якщо в oc_order немає жодного
- * підтвердженого замовлення (order_status_id > 0, статус не з виключених) з тим самим
- * телефоном — на всю корзину (sub_total) нараховується знижка total_first_order_percent %.
+ * Знижка total_first_order_percent % на всю корзину (sub_total) показується завжди і зникає,
+ * коли введений телефон знайдено в попередніх замовленнях (order_status_id > 0, статус не з виключених).
  */
 class ModelExtensionTotalFirstOrder extends Model {
 	private $cache = array();
@@ -11,13 +10,7 @@ class ModelExtensionTotalFirstOrder extends Model {
 	public function getTotal($total) {
 		$percent = (float)$this->config->get('total_first_order_percent');
 
-		if ($percent <= 0) {
-			return;
-		}
-
-		$phone = $this->normalizePhone($this->getTelephone());
-
-		if (!$phone || !$this->isFirstOrder($phone)) {
+		if ($percent <= 0 || !$this->isEligible()) {
 			return;
 		}
 
@@ -60,12 +53,39 @@ class ModelExtensionTotalFirstOrder extends Model {
 
 		$total['totals'][] = array(
 			'code'       => 'first_order',
-			'title'      => sprintf($this->language->get('first_order')->get('text_first_order'), rtrim(rtrim(number_format($percent, 2, '.', ''), '0'), '.')),
+			'title'      => sprintf($this->language->get('first_order')->get('text_first_order'), $this->getPercent()),
 			'value'      => -$discount_total,
 			'sort_order' => $this->config->get('total_first_order_sort_order')
 		);
 
 		$total['total'] -= $discount_total;
+	}
+
+	/**
+	 * Чи діє знижка для поточного відвідувача.
+	 * Телефон ще не відомий (корзина, неповністю введений номер) — діє.
+	 * Телефон відомий — діє, якщо з ним немає попередніх замовлень.
+	 * Замовлення з адмінки (API) без телефону — не діє.
+	 */
+	public function isEligible() {
+		$phone = $this->normalizePhone($this->getTelephone());
+
+		if ($phone) {
+			return $this->isFirstOrder($phone);
+		}
+
+		return !$this->isApiRequest();
+	}
+
+	/**
+	 * Відсоток для виводу: 5, 5.5
+	 */
+	public function getPercent() {
+		return rtrim(rtrim(number_format((float)$this->config->get('total_first_order_percent'), 2, '.', ''), '0'), '.');
+	}
+
+	private function isApiRequest() {
+		return isset($this->request->get['route']) && strpos($this->request->get['route'], 'api/') === 0;
 	}
 
 	/**

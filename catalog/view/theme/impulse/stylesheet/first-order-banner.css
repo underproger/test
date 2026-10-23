@@ -1,0 +1,113 @@
+/* Банер «Даруємо знижку на перше замовлення» */
+.first-order-banner {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 24px 24px;
+  pointer-events: none;
+}
+
+.first-order-banner__wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  padding: 44px 32px 32px;
+  text-align: center;
+  background-color: var(--color-white);
+  box-shadow: 0 8px 40px rgba(var(--color-black--rgb), 0.16);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(calc(100% + 24px));
+  transition: transform 0.4s ease, opacity 0.4s ease, visibility 0s linear 0.4s;
+  pointer-events: auto;
+}
+
+.first-order-banner._active .first-order-banner__wrapper {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: transform 0.4s ease, opacity 0.4s ease, visibility 0s;
+}
+
+.first-order-banner__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  color: var(--color-black);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+html:not(.v-mobile) .first-order-banner__close:hover,
+html:not(.v-mobile) .first-order-banner__close:focus-visible {
+  color: var(--color-grey-300);
+}
+
+.first-order-banner__title {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+.first-order-banner__subtitle {
+  margin-top: 8px;
+  font-size: 18px;
+  line-height: 140%;
+}
+
+.first-order-banner__text {
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 140%;
+  color: var(--color-grey-300);
+}
+
+.first-order-banner__button {
+  width: 100%;
+  margin-top: 24px;
+  padding: 18px;
+  font-size: 16px;
+}
+
+@media (max-width: 899px) {
+  .first-order-banner {
+    padding: 0;
+  }
+
+  .first-order-banner__wrapper {
+    max-width: none;
+    padding: 40px 20px calc(20px + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--color-grey-100);
+    box-shadow: 0 -4px 24px rgba(var(--color-black--rgb), 0.12);
+  }
+
+  .first-order-banner__title {
+    font-size: 26px;
+  }
+
+  .first-order-banner__subtitle {
+    font-size: 16px;
+  }
+
+  .first-order-banner__button {
+    padding: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .first-order-banner__wrapper,
+  .first-order-banner._active .first-order-banner__wrapper {
+    transition: none;
+  }
+}

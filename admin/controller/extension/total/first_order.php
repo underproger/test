@@ -16,6 +16,8 @@ class ControllerExtensionTotalFirstOrder extends Controller {
 
 			$this->model_setting_setting->editSetting('total_first_order', $this->request->post);
 
+			$this->addBannerEvent();
+
 			$this->session->data['success'] = $this->language->get('text_success');
 
 			$this->response->redirect($this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=total', true));
@@ -72,6 +74,14 @@ class ControllerExtensionTotalFirstOrder extends Controller {
 
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
+		if (isset($this->request->post['total_first_order_banner'])) {
+			$data['total_first_order_banner'] = $this->request->post['total_first_order_banner'];
+		} elseif (!is_null($this->config->get('total_first_order_banner'))) {
+			$data['total_first_order_banner'] = $this->config->get('total_first_order_banner');
+		} else {
+			$data['total_first_order_banner'] = 1;
+		}
+
 		if (isset($this->request->post['total_first_order_status'])) {
 			$data['total_first_order_status'] = $this->request->post['total_first_order_status'];
 		} else {
@@ -108,15 +118,31 @@ class ControllerExtensionTotalFirstOrder extends Controller {
 		$this->model_setting_setting->editSetting('total_first_order', array(
 			'total_first_order_percent'        => 5,
 			'total_first_order_exclude_status' => $exclude,
+			'total_first_order_banner'         => 1,
 			'total_first_order_status'         => 0,
 			'total_first_order_sort_order'     => 4
 		));
+
+		$this->addBannerEvent();
 	}
 
 	public function uninstall() {
 		$this->load->model('setting/setting');
+		$this->load->model('setting/event');
 
 		$this->model_setting_setting->deleteSetting('total_first_order');
+		$this->model_setting_event->deleteEventByCode('first_order_banner');
+	}
+
+	/**
+	 * Банер виводиться подією після рендеру футера — тема та OCMOD-модифікації не змінюються.
+	 */
+	private function addBannerEvent() {
+		$this->load->model('setting/event');
+
+		if (!$this->model_setting_event->getEventByCode('first_order_banner')) {
+			$this->model_setting_event->addEvent('first_order_banner', 'catalog/view/common/footer/after', 'extension/total/first_order/banner');
+		}
 	}
 
 	protected function validate() {

@@ -136,3 +136,16 @@ html:not(.v-mobile) .product-info__tab:hover {
     gap: 8px 20px;
   }
 }
+
+/* Десктоп — під слайдером, мобільний — перед «Звʼязатися з нами» */
+@media (min-width: 900px) {
+  .product-info--mobile {
+    display: none;
+  }
+}
+
+@media (max-width: 899px) {
+  .product-info--desktop {
+    display: none;
+  }
+}

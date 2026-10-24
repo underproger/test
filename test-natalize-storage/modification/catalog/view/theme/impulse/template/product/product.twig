@@ -98,27 +98,8 @@
           </div>
         {% endif %}
 
-        <link href="catalog/view/theme/impulse/stylesheet/product-info.css?v=1.2.0" type="text/css" rel="stylesheet" />
-        <div class="product-info" data-product-info>
-          <ul class="product-info__list">
-            <li>Доставка 1-2 дні по Україні</li>
-            <li>Примірка перед оплатою</li>
-            <li>Відправлення до 3-х товарів на вибір</li>
-          </ul>
-          {% if product_info_tabs %}
-            <div class="product-info__tabs">
-              {% for tab in product_info_tabs %}
-                <button type="button" class="product-info__tab" id="product-info-tab-{{ tab.id }}" aria-expanded="false" aria-controls="product-info-panel-{{ tab.id }}">{{ tab.title }}</button>
-              {% endfor %}
-            </div>
-            {% for tab in product_info_tabs %}
-              <div class="product-info__panel" id="product-info-panel-{{ tab.id }}" role="region" aria-labelledby="product-info-tab-{{ tab.id }}" hidden>
-                <div class="product-info__content">{{ tab.description }}</div>
-              </div>
-            {% endfor %}
-          {% endif %}
-        </div>
-        <script src="catalog/view/theme/impulse/script/product-info.js?v=1.0.0" type="text/javascript"></script>
+        <link href="catalog/view/theme/impulse/stylesheet/product-info.css?v=1.3.0" type="text/css" rel="stylesheet" />
+        {{ include("impulse/template/product/product_info.twig", {'place': 'desktop'}) }}
       </div>
 
    
@@ -307,6 +288,9 @@
             {% endfor %}
           </div>
         </div>
+
+        {{ include("impulse/template/product/product_info.twig", {'place': 'mobile'}) }}
+        <script src="catalog/view/theme/impulse/script/product-info.js?v=1.0.0" type="text/javascript"></script>
 
         <div class="product__contacts">
             <span>Звʼязатися з нами</span>

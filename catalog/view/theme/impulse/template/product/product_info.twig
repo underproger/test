@@ -1,0 +1,20 @@
+{# Інформація в картці товару: place = desktop (під слайдером) | mobile (перед «Звʼязатися з нами») #}
+<div class="product-info product-info--{{ place }}" data-product-info>
+  <ul class="product-info__list">
+    <li>Доставка 1-2 дні по Україні</li>
+    <li>Примірка перед оплатою</li>
+    <li>Відправлення до 3-х товарів на вибір</li>
+  </ul>
+  {% if product_info_tabs %}
+    <div class="product-info__tabs">
+      {% for tab in product_info_tabs %}
+        <button type="button" class="product-info__tab" id="product-info-{{ place }}-tab-{{ tab.id }}" aria-expanded="false" aria-controls="product-info-{{ place }}-panel-{{ tab.id }}">{{ tab.title }}</button>
+      {% endfor %}
+    </div>
+    {% for tab in product_info_tabs %}
+      <div class="product-info__panel" id="product-info-{{ place }}-panel-{{ tab.id }}" role="region" aria-labelledby="product-info-{{ place }}-tab-{{ tab.id }}" hidden>
+        <div class="product-info__content">{{ tab.description }}</div>
+      </div>
+    {% endfor %}
+  {% endif %}
+</div>

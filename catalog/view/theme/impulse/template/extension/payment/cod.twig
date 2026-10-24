@@ -1,0 +1,26 @@
+{# Оплата при отриманні: кнопка в стилі теми (Simple показує її авторизованим замість своєї «Оформити замовлення») #}
+<div class="buttons">
+  <input type="button" value="Оформити замовлення" id="button-confirm" data-loading-text="{{ text_loading }}" class="button _button checkout-confirm-button" />
+</div>
+<script type="text/javascript"><!--
+$('#button-confirm').on('click', function() {
+	$.ajax({
+		url: 'index.php?route=extension/payment/cod/confirm',
+		dataType: 'json',
+		beforeSend: function() {
+			$('#button-confirm').prop('disabled', true);
+		},
+		complete: function() {
+			$('#button-confirm').prop('disabled', false);
+		},
+		success: function(json) {
+			if (json['redirect']) {
+				location = json['redirect'];
+			}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+//--></script>

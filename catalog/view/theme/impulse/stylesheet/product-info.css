@@ -1,14 +1,14 @@
 /* Картка товару: інформація під слайдером (доставка, примірка, посилання на умови) */
 .product-info {
   margin-top: 24px;
-  padding: 24px 28px;
-  background-color: var(--color-grey-050);
-  font-size: 14px;
-  line-height: 160%;
 }
 
 .product-info__list {
+  padding: 24px 28px;
   list-style: none;
+  background-color: var(--color-grey-050);
+  font-size: 14px;
+  line-height: 160%;
 }
 
 .product-info__list li {
@@ -31,35 +31,59 @@
   border-radius: 50%;
 }
 
+/* Посилання у вигляді рядків акордеону: НАЗВА ........ + */
 .product-info__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 24px;
-  margin-top: 16px;
-  padding-top: 16px;
+  margin-top: 8px;
   list-style: none;
-  border-top: 1px solid rgba(var(--color-black--rgb), 0.1);
 }
 
-.product-info__links a {
-  color: var(--color-grey-300);
-  text-decoration: underline;
-  text-underline-offset: 3px;
+.product-info__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-black);
+  border-bottom: 1px solid rgba(var(--color-black--rgb), 0.1);
   transition: color 0.2s ease;
 }
 
-html:not(.v-mobile) .product-info__links a:hover,
-.product-info__links a:focus-visible {
+.product-info__link::after {
+  content: "";
+  flex: 0 0 14px;
+  width: 14px;
+  height: 14px;
+  background:
+    linear-gradient(currentColor, currentColor) center / 14px 1.5px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 1.5px 14px no-repeat;
+  transition: transform 0.2s ease;
+}
+
+html:not(.v-mobile) .product-info__link:hover,
+.product-info__link:focus-visible {
   color: var(--color-red);
+}
+
+html:not(.v-mobile) .product-info__link:hover::after {
+  transform: rotate(90deg);
 }
 
 @media (max-width: 899px) {
   .product-info {
     margin-top: 16px;
+  }
+
+  .product-info__list {
     padding: 20px;
   }
 
-  .product-info__links {
-    gap: 8px 20px;
+  .product-info__link {
+    padding: 16px 0;
+    font-size: 14px;
   }
 }

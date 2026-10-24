@@ -19,7 +19,7 @@ $_['help_percent']          = 'Percent of the cart products total (shipping excl
 $_['help_exclude_status']   = 'Orders in these statuses are ignored. Orders without status (unfinished) are always ignored.';
 $_['help_banner']           = 'Shown once on the first visit (except cart and checkout). Not shown to customers with previous orders.';
 $_['help_sort_order']       = 'Must be lower than Taxes and Total';
-$_['help_phone']            = 'First order is detected by telephone number (last 9 digits are compared). Discount appears in totals once a phone with no previous orders is entered. Calculated from the products total, shipping excluded.';
+$_['help_phone']            = 'Only for registered customers (or those creating an account at checkout) on their first order. Previous orders are searched by account and by phone (last 9 digits). Calculated from the products total, shipping excluded.';
 
 // Error
 $_['error_permission']      = 'Warning: You do not have permission to modify first order discount!';

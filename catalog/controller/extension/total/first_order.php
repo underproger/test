@@ -27,8 +27,9 @@ class ControllerExtensionTotalFirstOrder extends Controller {
 
 		$this->load->model('extension/total/first_order');
 
-		// Клієнт, у якого вже були замовлення (за телефоном з акаунта / форми) — не показуємо
-		if ($this->model_extension_total_first_order->hasPreviousOrders()) {
+		// Банер закликає зареєструватися — авторизованим не показуємо (знижку вони побачать у кошику).
+		// Гостям, чий телефон уже є в замовленнях, теж не показуємо.
+		if ($this->customer->isLogged() || $this->model_extension_total_first_order->hasPreviousOrders()) {
 			return;
 		}
 

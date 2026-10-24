@@ -1,8 +1,9 @@
 <?php
 /**
- * Знижка на перше замовлення.
- * Знижка total_first_order_percent % на всю корзину (sub_total) з'являється, коли введено телефон
- * і з ним немає попередніх замовлень (order_status_id > 0, статус не з виключених).
+ * Знижка на перше замовлення — лише для зареєстрованих клієнтів.
+ * Знижка total_first_order_percent % на всю корзину (sub_total), якщо клієнт авторизований
+ * (або створює акаунт на оформленні в Simple) і в нього ще не було замовлень — ні за акаунтом,
+ * ні за телефоном (order_status_id > 0, статус не з виключених).
  */
 class ModelExtensionTotalFirstOrder extends Model {
 	private $cache = array();
@@ -62,22 +63,42 @@ class ModelExtensionTotalFirstOrder extends Model {
 	}
 
 	/**
-	 * Знижка діє: телефон введено повністю і з ним ще не було замовлень.
+	 * Чи діє знижка зараз.
 	 */
 	public function isEligible() {
-		$phone = $this->normalizePhone($this->getTelephone());
+		if ($this->customer->isLogged()) {
+			// Авторизований клієнт: перевіряємо акаунт і обидва телефони (з акаунта та з форми)
+			return !$this->hasOrders((int)$this->customer->getId(), array($this->customer->getTelephone(), $this->getFormTelephone()));
+		}
 
-		return $phone && $this->isFirstOrder($phone);
+		if ($this->isApiRequest()) {
+			// Замовлення з адмінки: тільки для клієнта з акаунтом
+			$customer_id = !empty($this->session->data['customer']['customer_id']) ? (int)$this->session->data['customer']['customer_id'] : 0;
+			$telephone = !empty($this->session->data['customer']['telephone']) ? $this->session->data['customer']['telephone'] : '';
+
+			return $customer_id && !$this->hasOrders($customer_id, array($telephone));
+		}
+
+		if ($this->isRegistering()) {
+			// Гість обрав «Створити акаунт» на оформленні (Simple створить акаунт перед записом замовлення):
+			// показуємо знижку, коли номер введено повністю і з ним не було замовлень
+			$phone = $this->getFormTelephone();
+
+			return $this->normalizePhone($phone) && !$this->hasOrders(0, array($phone));
+		}
+
+		return false;
 	}
 
 	/**
-	 * Відомий телефон уже є в замовленнях (для банера: таким клієнтам не показуємо).
-	 * Телефон ще не відомий — false.
+	 * Для банера: чи відомо, що в клієнта вже були замовлення (за акаунтом або відомим телефоном).
 	 */
 	public function hasPreviousOrders() {
-		$phone = $this->normalizePhone($this->getTelephone());
+		if ($this->customer->isLogged()) {
+			return $this->hasOrders((int)$this->customer->getId(), array($this->customer->getTelephone(), $this->getFormTelephone()));
+		}
 
-		return $phone && !$this->isFirstOrder($phone);
+		return $this->hasOrders(0, array($this->getFormTelephone()));
 	}
 
 	/**
@@ -88,29 +109,29 @@ class ModelExtensionTotalFirstOrder extends Model {
 	}
 
 	/**
-	 * Телефон з поточного оформлення.
+	 * Телефон, введений у формі оформлення (Simple або стандартний чекаут).
 	 */
-	private function getTelephone() {
-		// Simple: актуальне значення поля з форми
+	private function getFormTelephone() {
 		if (!empty($this->session->data['simple']['customer']['telephone'])) {
 			return $this->session->data['simple']['customer']['telephone'];
 		}
 
-		// Стандартний чекаут (гість)
 		if (!empty($this->session->data['guest']['telephone'])) {
 			return $this->session->data['guest']['telephone'];
 		}
 
-		// API: створення / редагування замовлення з адмінки
-		if (!empty($this->session->data['customer']['telephone'])) {
-			return $this->session->data['customer']['telephone'];
-		}
-
-		if ($this->customer->isLogged()) {
-			return $this->customer->getTelephone();
-		}
-
 		return '';
+	}
+
+	/**
+	 * Гість обрав «Створити акаунт?» — «Так» у формі Simple.
+	 */
+	private function isRegistering() {
+		return !empty($this->session->data['simple']['customer']['register']);
+	}
+
+	private function isApiRequest() {
+		return isset($this->request->get['route']) && strpos($this->request->get['route'], 'api/') === 0;
 	}
 
 	/**
@@ -127,14 +148,27 @@ class ModelExtensionTotalFirstOrder extends Model {
 		return substr($digits, -9);
 	}
 
-	private function isFirstOrder($phone) {
-		if (isset($this->cache[$phone])) {
-			return $this->cache[$phone];
+	/**
+	 * Чи є підтверджені замовлення за акаунтом або за будь-яким із телефонів.
+	 */
+	private function hasOrders($customer_id, array $phones) {
+		$conditions = array();
+
+		if ($customer_id) {
+			$conditions[] = "customer_id = '" . (int)$customer_id . "'";
 		}
 
-		$sql = "SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order`
-			WHERE order_status_id > '0'
-			AND RIGHT(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(telephone, ' ', ''), '-', ''), '(', ''), ')', ''), '+', ''), '.', ''), 9) = '" . $this->db->escape($phone) . "'";
+		$phones = array_unique(array_filter(array_map(array($this, 'normalizePhone'), $phones)));
+
+		foreach ($phones as $phone) {
+			$conditions[] = "RIGHT(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(telephone, ' ', ''), '-', ''), '(', ''), ')', ''), '+', ''), '.', ''), 9) = '" . $this->db->escape($phone) . "'";
+		}
+
+		if (!$conditions) {
+			return false;
+		}
+
+		$sql = "SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "order` WHERE order_status_id > '0' AND (" . implode(' OR ', $conditions) . ")";
 
 		$exclude_statuses = $this->config->get('total_first_order_exclude_status');
 
@@ -147,10 +181,14 @@ class ModelExtensionTotalFirstOrder extends Model {
 			$sql .= " AND order_id != '" . (int)$this->request->get['order_id'] . "'";
 		}
 
-		$query = $this->db->query($sql);
+		$cache_key = md5($sql);
 
-		$this->cache[$phone] = ((int)$query->row['total'] === 0);
+		if (!isset($this->cache[$cache_key])) {
+			$query = $this->db->query($sql);
 
-		return $this->cache[$phone];
+			$this->cache[$cache_key] = ((int)$query->row['total'] > 0);
+		}
+
+		return $this->cache[$cache_key];
 	}
 }

@@ -1,8 +1,8 @@
 <?php
 /**
  * Знижка на перше замовлення.
- * Знижка total_first_order_percent % на всю корзину (sub_total) показується завжди і зникає,
- * коли введений телефон знайдено в попередніх замовленнях (order_status_id > 0, статус не з виключених).
+ * Знижка total_first_order_percent % на всю корзину (sub_total) з'являється, коли введено телефон
+ * і з ним немає попередніх замовлень (order_status_id > 0, статус не з виключених).
  */
 class ModelExtensionTotalFirstOrder extends Model {
 	private $cache = array();
@@ -62,19 +62,22 @@ class ModelExtensionTotalFirstOrder extends Model {
 	}
 
 	/**
-	 * Чи діє знижка для поточного відвідувача.
-	 * Телефон ще не відомий (корзина, неповністю введений номер) — діє.
-	 * Телефон відомий — діє, якщо з ним немає попередніх замовлень.
-	 * Замовлення з адмінки (API) без телефону — не діє.
+	 * Знижка діє: телефон введено повністю і з ним ще не було замовлень.
 	 */
 	public function isEligible() {
 		$phone = $this->normalizePhone($this->getTelephone());
 
-		if ($phone) {
-			return $this->isFirstOrder($phone);
-		}
+		return $phone && $this->isFirstOrder($phone);
+	}
 
-		return !$this->isApiRequest();
+	/**
+	 * Відомий телефон уже є в замовленнях (для банера: таким клієнтам не показуємо).
+	 * Телефон ще не відомий — false.
+	 */
+	public function hasPreviousOrders() {
+		$phone = $this->normalizePhone($this->getTelephone());
+
+		return $phone && !$this->isFirstOrder($phone);
 	}
 
 	/**
@@ -82,10 +85,6 @@ class ModelExtensionTotalFirstOrder extends Model {
 	 */
 	public function getPercent() {
 		return rtrim(rtrim(number_format((float)$this->config->get('total_first_order_percent'), 2, '.', ''), '0'), '.');
-	}
-
-	private function isApiRequest() {
-		return isset($this->request->get['route']) && strpos($this->request->get['route'], 'api/') === 0;
 	}
 
 	/**

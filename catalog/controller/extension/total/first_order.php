@@ -28,7 +28,7 @@ class ControllerExtensionTotalFirstOrder extends Controller {
 		$this->load->model('extension/total/first_order');
 
 		// Клієнт, у якого вже були замовлення (за телефоном з акаунта / форми) — не показуємо
-		if (!$this->model_extension_total_first_order->isEligible()) {
+		if ($this->model_extension_total_first_order->hasPreviousOrders()) {
 			return;
 		}
 

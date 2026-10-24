@@ -992,6 +992,36 @@ class ControllerProductProduct extends Controller {
 			$data['contact'] = $this->url->link('information/contact', '', true);
 			$data['delivery'] = $this->url->link('information/information&information_id=3', '', true);
 
+			// Акордеон у картці товару: «Характеристики», «Доставка», «Повернення», «Рекомендуємо»
+			$this->document->addStyle('catalog/view/theme/impulse/stylesheet/product-accordion.css?v=1.0.0');
+
+			$data['payment'] = $this->url->link('information/information', 'information_id=6', true);
+			$data['returns'] = $this->url->link('information/information', 'information_id=5', true);
+
+			$data['recommend_category'] = array();
+			$data['recommend_brand_category'] = array();
+
+			// Тип товару: активна підкатегорія (Трикотаж → Джемпер), інакше розділ, у якого є підкатегорії.
+			// Маркетингові категорії верхнього рівня (New, Sale, Outlet, Каталог...) не беремо.
+			$recommend_query = $this->db->query("SELECT c.category_id, c.parent_id, cd.name FROM " . DB_PREFIX . "product_to_category p2c LEFT JOIN " . DB_PREFIX . "category c ON (c.category_id = p2c.category_id) LEFT JOIN " . DB_PREFIX . "category_description cd ON (cd.category_id = c.category_id) LEFT JOIN " . DB_PREFIX . "category_to_store c2s ON (c2s.category_id = c.category_id) WHERE p2c.product_id = '" . (int)$product_info['product_id'] . "' AND c.status = '1' AND cd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND c2s.store_id = '" . (int)$this->config->get('config_store_id') . "' AND ((c.parent_id > 0 AND EXISTS (SELECT 1 FROM " . DB_PREFIX . "category pc WHERE pc.category_id = c.parent_id AND pc.status = '1')) OR (c.parent_id = 0 AND EXISTS (SELECT 1 FROM " . DB_PREFIX . "category sc WHERE sc.parent_id = c.category_id AND sc.status = '1'))) ORDER BY c.parent_id DESC LIMIT 1");
+
+			if ($recommend_query->num_rows) {
+				$recommend_path = $recommend_query->row['parent_id'] ? $recommend_query->row['parent_id'] . '_' . $recommend_query->row['category_id'] : $recommend_query->row['category_id'];
+
+				$data['recommend_category'] = array(
+					'name' => $recommend_query->row['name'],
+					'href' => $this->url->link('product/category', 'path=' . $recommend_path)
+				);
+
+				// Категорія з фільтром OCFilter за брендом (ocf=F1S0V{manufacturer_id})
+				if ($product_info['manufacturer_id']) {
+					$data['recommend_brand_category'] = array(
+						'name' => $recommend_query->row['name'] . ' ' . $product_info['manufacturer'],
+						'href' => $this->url->link('product/category', 'path=' . $recommend_path . '&ocf=F1S0V' . (int)$product_info['manufacturer_id'])
+					);
+				}
+			}
+
 			$data['recurrings'] = $this->model_catalog_product->getProfiles($this->request->get['product_id']);
 
 

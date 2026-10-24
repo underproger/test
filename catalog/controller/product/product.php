@@ -842,6 +842,27 @@ class ControllerProductProduct extends Controller {
 			$data['contact'] = $this->url->link('information/contact', '', true);
 			$data['delivery'] = $this->url->link('information/information&information_id=3', '', true);
 
+			// Інформація під слайдером: тексти сторінок «Оплата», «Доставка», «Обмін та повернення», «Резервування товарів»
+			$this->load->model('catalog/information');
+
+			$data['product_info_tabs'] = array();
+
+			foreach (array(6 => 'Оплата', 3 => 'Доставка', 5 => 'Обмін та повернення', 8 => 'Резервування товарів') as $information_id => $information_title) {
+				$information_info = $this->model_catalog_information->getInformation($information_id);
+
+				if ($information_info) {
+					$information_description = html_entity_decode($information_info['description'], ENT_QUOTES, 'UTF-8');
+					// порожні абзаци (<p><br></p>) та порожні службові span
+					$information_description = preg_replace(array('#<p>(\s|&nbsp;|<br\s*/?>)*</p>#iu', '#<span[^>]*>\s*</span>#iu'), '', $information_description);
+
+					$data['product_info_tabs'][] = array(
+						'id'          => $information_id,
+						'title'       => $information_title,
+						'description' => trim($information_description)
+					);
+				}
+			}
+
 			$data['recurrings'] = $this->model_catalog_product->getProfiles($this->request->get['product_id']);
 
 			$this->model_catalog_product->updateViewed($this->request->get['product_id']);
